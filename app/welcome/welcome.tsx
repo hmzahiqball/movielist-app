@@ -51,44 +51,31 @@ export function Welcome() {
       >
         {features.map((feature, index) => (
           <SwiperSlide key={index}>
-            <div
-              className="hero-content flex-col lg:flex-row min-h-screen p-8 bg-black bg-opacity-60"
-              style={{
-                backgroundImage: `url(https://picsum.photos/id/${
-                  1020 + index
-                }/1600/900)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <div className="max-w-md bg-black bg-opacity-70 p-6 rounded-xl shadow-xl text-white">
-                <feature.icon className="h-10 w-10 mb-4 text-primary" />
-                <h1 className="text-4xl font-bold">{feature.name}</h1>
-                <p className="py-4 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-                <button className="btn btn-primary">Get Started</button>
+            <div className="relative min-h-screen flex items-center justify-center">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(https://image.tmdb.org/t/p/original/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg)`,
+                  filter: 'blur(5px)',
+                  zIndex: -1,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              ></div>
+              <div className="container mx-auto px-4 relative">
+                <div className="max-w-md mx-auto bg-black bg-opacity-70 p-6 rounded-xl shadow-xl text-white">
+                  <feature.icon className="h-10 w-10 mb-4 text-primary" />
+                  <h1 className="text-4xl font-bold">{feature.name}</h1>
+                  <p className="py-4 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                  <button className="btn btn-primary">Get Started</button>
+                </div>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Navigation Buttons */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-4">
-        <button
-          className="btn btn-circle btn-outline"
-          onClick={() => swiperInstance?.slidePrev()}
-        >
-          &#x2039;
-        </button>
-        <button
-          className="btn btn-circle btn-outline"
-          onClick={() => swiperInstance?.slideNext()}
-        >
-          &#x203A;
-        </button>
-      </div>
     </div>
   );
 }
