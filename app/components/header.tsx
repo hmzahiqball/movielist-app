@@ -43,14 +43,13 @@ export function Header() {
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
       >
-        <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5">
+        <div className="flex items-center lg:flex-1">
+          <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2">
             <img
               alt="FilmScape logo"
-              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-              className="h-8 w-auto text-[#F8EEDF]"
+              src="/favicon.png"
+              className="h-12 w-auto"
             />
-            <span className="sr-only">FilmScape</span>
           </Link>
         </div>
         <div className="flex lg:hidden">
