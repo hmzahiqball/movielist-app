@@ -34,11 +34,10 @@ export function MovieSection({ title, items }: MovieSectionProps) {
           spaceBetween={16}
           slidesPerView="auto"
           grabCursor={true}
-          className="!overflow-visible"
-          style={{ overflow: 'visible' }}
         >
           {items.map((movie, idx) => {
             const isHovered = hoveredIndex === idx;
+            const isLastThree = idx >= items.length - 3;
             return (
               <SwiperSlide
                 key={idx}
@@ -66,7 +65,9 @@ export function MovieSection({ title, items }: MovieSectionProps) {
 
                   {/* Extended Card */}
                   <div
-                    className={`absolute top-0 left-full ml-2 w-[512px] h-72 z-[999] rounded-lg overflow-hidden p-2 transition-all duration-300 mt-2
+                    className={`absolute top-0 ${
+                      isLastThree ? 'right-full mr-2' : 'left-full ml-2'
+                    } w-[512px] h-72 z-[999] rounded-lg overflow-hidden p-2 transition-all duration-300 mt-2
                       ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
                     `}
                     style={{
