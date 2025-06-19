@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useLocation } from "react-router"
+import { Link } from "react-router"
 import {
   Bars3Icon,
 } from '@heroicons/react/24/outline'
@@ -8,32 +10,48 @@ import {
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
+  const currentPath = location.pathname
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10) // bisa lo ubah threshold-nya
+      setScrolled(window.scrollY > 10)
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const linkClass = (path: string) => {
+    const isActive =
+      path === '/'
+        ? currentPath === '/'
+        : currentPath.startsWith(path)
+    
+    return `text-sm font-semibold text-[#EEEEEE] border-b-2 transition-all duration-200 ${
+      isActive ? 'border-red-500' : 'border-transparent'
+    }`
+  }
+
   return (
     <header
-  className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-    scrolled ? 'bg-black/30 backdrop-blur-md' : 'bg-transparent'
-  }`}
->
-      <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? 'bg-black/30 backdrop-blur-md' : 'bg-transparent'
+      }`}
+    >
+      <nav
+        aria-label="Global"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+      >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+          <Link to="/" className="-m-1.5 p-1.5">
             <img
-              alt=""
+              alt="FilmScape logo"
               src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
               className="h-8 w-auto text-[#F8EEDF]"
             />
-          </a>
+            <span className="sr-only">FilmScape</span>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -46,15 +64,15 @@ export function Header() {
           </button>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
-          <a href="#" className="text-sm/6 font-semibold text-[#EEEEEE]">
+          <Link to="/" className={linkClass('/')}>
             Home
-          </a>
-          <a href="#" className="text-sm/6 font-semibold text-[#EEEEEE]">
+          </Link>
+          <Link to="/movies" className={linkClass('/movies')}>
             Movies
-          </a>
-          <a href="#" className="text-sm/6 font-semibold text-[#EEEEEE]">
+          </Link>
+          <Link to="/tv" className={linkClass('/tv')}>
             TV Series
-          </a>
+          </Link>
         </div>
       </nav>
     </header>
