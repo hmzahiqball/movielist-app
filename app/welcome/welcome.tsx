@@ -11,15 +11,15 @@ export function Welcome() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const dummyMovies = [
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
-    { title: "Final Destination Bloodlines", poster: "https://image.tmdb.org/t/p/original/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
+    { title: "Lilo & Stitch", poster: "https://image.tmdb.org/t/p/original/A89x10Eqt43bPFEWPpbraWwkaFr.jpg", bgimage: "https://image.tmdb.org/t/p/original/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg" },
   ];
 
   return (

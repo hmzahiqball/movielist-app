@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -6,6 +6,7 @@ import 'swiper/css';
 type Movie = {
   title: string;
   poster: string;
+  bgimage?: string;
 };
 
 type MovieSectionProps = {
@@ -14,6 +15,8 @@ type MovieSectionProps = {
 };
 
 export function MovieSection({ title, items }: MovieSectionProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <div className="mb-12">
       <div className="flex justify-between items-center mb-6">
@@ -26,33 +29,66 @@ export function MovieSection({ title, items }: MovieSectionProps) {
         </button>
       </div>
 
-      <Swiper
-        spaceBetween={16}
-        slidesPerView={'auto'}
-        grabCursor={true}
-        className="px-1 overflow-visible"
-      >
-        {items.map((movie, idx) => (
-          <SwiperSlide
-            key={idx}
-            style={{ width: '192px' }} // w-48 (48 * 4 px)
-            className="flex-shrink-0 overflow-visible"
-          >
-            <Link to={`/movie/${encodeURIComponent(movie.title)}`}>
-              <div className="flex flex-col items-center">
-                <img
-                  src={movie.poster}
-                  alt={movie.title}
-                  className="rounded-md mb-2 object-cover h-72 w-full"
-                />
-                <p className="text-md text-center">
-                  {movie.title}
-                </p>
-              </div>
-            </Link>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <div className="relative">
+        <Swiper
+          spaceBetween={16}
+          slidesPerView="auto"
+          grabCursor={true}
+          className="!overflow-visible"
+          style={{ overflow: 'visible' }}
+        >
+          {items.map((movie, idx) => {
+            const isHovered = hoveredIndex === idx;
+            return (
+              <SwiperSlide
+                key={idx}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                style={{ width: 192, minHeight: 288 }}
+                className={`flex-shrink-0 relative overflow-visible ${
+                  isHovered ? 'z-[1000]' : 'z-10'
+                }`}
+              >
+                <div className="group relative w-48 min-h-[288px] rounded-lg bg-black text-white">
+                  <Link to={`/movie/${encodeURIComponent(movie.title)}`}>
+                    {/* Poster */}
+                    <div className="p-2">
+                      <img
+                        src={movie.poster}
+                        alt={movie.title}
+                        className="rounded-md object-cover h-72 w-full"
+                      />
+                      <p className="text-sm text-center mt-2 font-semibold">
+                        {movie.title}
+                      </p>
+                    </div>
+                  </Link>
+
+                  {/* Extended Card */}
+                  <div
+                    className={`absolute top-0 left-full ml-2 w-[512px] h-72 z-[999] rounded-lg overflow-hidden p-2 transition-all duration-300 mt-2
+                      ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
+                    `}
+                    style={{
+                      backgroundImage: `url(${movie.bgimage || movie.poster})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      boxShadow: '0 0 32px rgba(0, 0, 0, 0.8), 0 0 64px rgba(0, 0, 0, 0.8), 0 0 128px rgba(0, 0, 0, 0.8), 0 0 256px rgba(0, 0, 0, 0.8)',
+                    }}
+                  >
+                    <div className="bg-black/60 backdrop-blur-sm p-4 h-full rounded-md flex flex-col justify-start">
+                      <h3 className="text-lg font-bold mb-2">{movie.title}</h3>
+                      <p className="text-sm text-gray-300 leading-snug overflow-hidden text-ellipsis">
+                        {Array(5).fill(`Movie Description for ${movie.title}`).join(' ')}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
     </div>
   );
 }
