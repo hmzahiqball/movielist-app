@@ -8,6 +8,7 @@ import {
 } from "react-router";
 
 import { Header } from "./components/header";
+import { Footer } from "./components/footer";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -37,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <Header />
         {children}
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>
