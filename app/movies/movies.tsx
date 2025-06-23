@@ -5,10 +5,17 @@ import { useSearchParams } from 'react-router'
 import axios from 'axios'
 
 const filterMap: Record<string, string> = {
-  Popular: 'popular',
+  Trending: 'popular',
   'Top Rated': 'top_rated',
   'Now Playing': 'now_playing',
   Upcoming: 'upcoming',
+}
+
+const displayMap: Record<string, string> = {
+  Popular: 'Trending',
+  'Top Rated': 'Top Rated',
+  'Now Playing': 'Now Playing',
+  Upcoming: 'Upcoming',
 }
 
 const reverseFilterMap = Object.fromEntries(
@@ -20,7 +27,7 @@ const filterOptions = Object.keys(filterMap)
 export function Movies() {
   const [searchParams] = useSearchParams()
   const urlFilterKey = searchParams.get('filter')
-  const initialFilter = reverseFilterMap[urlFilterKey || ''] || 'Popular'
+  const initialFilter = reverseFilterMap[urlFilterKey || ''] || 'Trending'
 
   const [activeFilter, setActiveFilter] = useState(initialFilter)
   const [currentPage, setCurrentPage] = useState(1)
@@ -101,3 +108,4 @@ export function Movies() {
     </div>
   )
 }
+
