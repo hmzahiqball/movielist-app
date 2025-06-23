@@ -5,7 +5,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Swiper as SwiperClass } from 'swiper';
-import { MovieSection } from '../components/welcome/movieSection';
+import { MovieSection } from '../components/home/movieSection';
 
 export function Home() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
@@ -52,7 +52,7 @@ export function Home() {
                     <img
                       src={movie.poster}
                       alt={movie.title}
-                      className="w-full h-auto rounded-xl shadow-lg"
+                      className="w-75 h-auto rounded-xl shadow-lg"
                     />
                   </div>
                   <div className="max-w-xl">

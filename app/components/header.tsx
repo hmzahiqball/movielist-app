@@ -23,15 +23,15 @@ export function Header() {
   }, [])
 
   const linkClass = (path: string) => {
-    const isActive =
-      path === '/'
-        ? currentPath === '/'
-        : currentPath.startsWith(path)
-    
-    return `text-sm font-semibold text-[#EEEEEE] border-b-2 transition-all duration-200 ${
-      isActive ? 'border-red-500' : 'border-transparent'
-    }`
-  }
+  const isActive =
+    path === '/'
+      ? currentPath === '/'
+      : currentPath.startsWith(path)
+
+  return `relative text-sm font-semibold text-[#EEEEEE] group ${
+    isActive ? 'text-red-500' : 'hover:text-red-500'
+  }`
+}
 
   return (
     <header
@@ -64,16 +64,25 @@ export function Header() {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
           <Link to="/" className={linkClass('/')}>
-            Home
+            <span className={`relative after:content-[''] after:absolute after:bottom-[-4px] after:left-1/2 after:-translate-x-1/2 after:h-[3px] after:rounded-full after:bg-red-500 after:transition-all after:duration-300 group-hover:after:w-full ${currentPath === '/' ? 'after:w-full' : 'after:w-0'}`}>
+              Home
+            </span>
           </Link>
+              
           <Link to="/movies" className={linkClass('/movies')}>
-            Movies
+            <span className={`relative after:content-[''] after:absolute after:bottom-[-4px] after:left-1/2 after:-translate-x-1/2 after:h-[3px] after:rounded-full after:bg-red-500 after:transition-all after:duration-300 group-hover:after:w-full ${currentPath.startsWith('/movies') ? 'after:w-full' : 'after:w-0'}`}>
+              Movies
+            </span>
           </Link>
+              
           <Link to="/tv" className={linkClass('/tv')}>
-            TV Series
+            <span className={`relative after:content-[''] after:absolute after:bottom-[-4px] after:left-1/2 after:-translate-x-1/2 after:h-[3px] after:rounded-full after:bg-red-500 after:transition-all after:duration-300 group-hover:after:w-full ${currentPath.startsWith('/tv') ? 'after:w-full' : 'after:w-0'}`}>
+              TV Series
+            </span>
           </Link>
         </div>
       </nav>
     </header>
   )
 }
+
