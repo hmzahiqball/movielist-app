@@ -12,11 +12,12 @@ type Movie = {
 };
 
 type MovieSectionProps = {
+  filterKey: string;
   title: string;
   items: Movie[];
 };
 
-export function MovieSection({ title, items }: MovieSectionProps) {
+export function MovieSection({ title, filterKey, items }: MovieSectionProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -26,9 +27,12 @@ export function MovieSection({ title, items }: MovieSectionProps) {
           {title}
           <span className="block w-12 h-1 bg-red-500 mt-1"></span>
         </h2>
-        <button className="border border-white rounded-full px-4 py-1 text-sm hover:bg-white hover:text-black transition">
-          View all
-        </button>
+        <Link
+  to={`/movies?filter=${encodeURIComponent(filterKey)}`}
+  className="border border-white rounded-full px-4 py-1 text-sm hover:bg-white hover:text-black transition"
+>
+  View all
+</Link>
       </div>
 
       <div className="relative">

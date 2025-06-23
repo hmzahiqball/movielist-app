@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MovieFilter } from '../components/movieFilter'
 import { MovieGrid } from '../components/movieGrid'
+import { useSearchParams } from 'react-router'
 import axios from 'axios'
 
 const filterMap: Record<string, string> = {
@@ -10,14 +11,23 @@ const filterMap: Record<string, string> = {
   Upcoming: 'upcoming',
 }
 
+const reverseFilterMap = Object.fromEntries(
+  Object.entries(filterMap).map(([k, v]) => [v, k])
+)
+
 const filterOptions = Object.keys(filterMap)
 
 export function Movies() {
-  const [activeFilter, setActiveFilter] = useState('Popular')
+  const [searchParams] = useSearchParams()
+  const urlFilterKey = searchParams.get('filter')
+  const initialFilter = reverseFilterMap[urlFilterKey || ''] || 'Popular'
+
+  const [activeFilter, setActiveFilter] = useState(initialFilter)
   const [currentPage, setCurrentPage] = useState(1)
   const [movies, setMovies] = useState<any[]>([])
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(false)
+
   const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI'
 
   useEffect(() => {
@@ -28,7 +38,7 @@ export function Movies() {
         const res = await axios.get(endpoint, {
           headers: {
             accept: 'application/json',
-            Authorization: AUTH_TOKEN,
+            Authorization: `${AUTH_TOKEN}`,
           },
         })
         setMovies(res.data.results)
@@ -61,7 +71,13 @@ export function Movies() {
         active={activeFilter}
         onChange={handleFilterChange}
       />
-      <MovieGrid movies={movies.map((m) => ({ title: m.title, poster: `https://image.tmdb.org/t/p/original${m.poster_path}` }))} loading={loading} />
+      <MovieGrid
+        movies={movies.map((m) => ({
+          title: m.title,
+          poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+        }))}
+        loading={loading}
+      />
 
       <div className="flex justify-center items-center gap-4 mt-8">
         <button

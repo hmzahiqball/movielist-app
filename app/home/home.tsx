@@ -152,6 +152,7 @@ export function Home() {
       <div className="px-12 py-12 relative overflow-visible">
         <MovieSection
           title="Trending movies"
+          filterKey="popular"
           items={trendingMovies.map((m) => ({
             title: m.title,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
@@ -161,6 +162,7 @@ export function Home() {
         />
         <MovieSection
           title="Top rated movies"
+          filterKey="top_rated"
           items={topRatedMovies.map((m) => ({
             title: m.title,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
@@ -170,6 +172,7 @@ export function Home() {
         />
         <MovieSection
           title="Upcoming movies"
+          filterKey="upcoming"
           items={upcomingMovies.map((m) => ({
             title: m.title,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
@@ -179,6 +182,7 @@ export function Home() {
         />
         <MovieSection
           title="Airing today series"
+          filterKey="airing_today"
           items={airingTodaySeries.map((m) => ({
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
@@ -188,6 +192,7 @@ export function Home() {
         />
         <MovieSection
           title="On the air series"
+          filterKey="on_the_air"
           items={onTheAirSeries.map((m) => ({
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
@@ -197,6 +202,7 @@ export function Home() {
         />
         <MovieSection
           title="Trending series"
+          filterKey="popular"
           items={trendingSeries.map((m) => ({
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
@@ -206,6 +212,7 @@ export function Home() {
         />
         <MovieSection
           title="Top rated series"
+          filterKey="top_rated"
           items={topRatedSeries.map((m) => ({
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
