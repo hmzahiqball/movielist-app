@@ -7,6 +7,8 @@ type Movie = {
   title: string;
   poster: string;
   bgimage?: string;
+  desc: string;
+  backdrop?: string;
 };
 
 type MovieSectionProps = {
@@ -71,7 +73,7 @@ export function MovieSection({ title, items }: MovieSectionProps) {
                       ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
                     `}
                     style={{
-                      backgroundImage: `url(${movie.bgimage || movie.poster})`,
+                      backgroundImage: `url(${movie.backdrop || movie.backdrop})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       boxShadow: '0 0 32px rgba(0, 0, 0, 0.8), 0 0 64px rgba(0, 0, 0, 0.8), 0 0 128px rgba(0, 0, 0, 0.8), 0 0 256px rgba(0, 0, 0, 0.8)',
@@ -80,7 +82,7 @@ export function MovieSection({ title, items }: MovieSectionProps) {
                     <div className="bg-black/60 backdrop-blur-sm p-4 h-full rounded-md flex flex-col justify-start">
                       <h3 className="text-lg font-bold mb-2">{movie.title}</h3>
                       <p className="text-sm text-gray-300 leading-snug overflow-hidden text-ellipsis">
-                        {Array(5).fill(`Movie Description for ${movie.title}`).join(' ')}
+                        {movie.desc}
                       </p>
                     </div>
                   </div>
