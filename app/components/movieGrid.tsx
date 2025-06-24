@@ -1,14 +1,15 @@
-import React from 'react'
+import React,  { useState } from 'react'
 import { MovieCard } from './movieCard'
 
 export function MovieGrid({
   movies,
   loading,
 }: {
-  movies: { title: string; poster: string }[]
+  movies: { title: string; poster: string, desc?: string, backdrop?: string }[]
   loading?: boolean
 }) {
   const skeletons = new Array(25).fill(null) // default 25 item sesuai pagination
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
     <div className="border-2 border-red-600 p-6 rounded-md max-w-6xl mx-auto">
@@ -21,7 +22,17 @@ export function MovieGrid({
               </div>
             ))
           : movies.map((movie, i) => (
-              <MovieCard key={i} title={movie.title} poster={movie.poster} />
+              <MovieCard
+                key={i}
+                index={i}
+                title={movie.title}
+                poster={movie.poster}
+                desc={movie.desc}
+                backdrop={movie.backdrop}
+                onHover={setHoveredIndex}
+                isHovered={hoveredIndex === i}
+                isLastColumn={(i + 1) % 5 === 0 || (i + 1) % 5 === 4} // contoh: jika grid 5 kolom, tapi kolom ke 4 dan 5 termasuk last column
+              />
             ))}
       </div>
     </div>

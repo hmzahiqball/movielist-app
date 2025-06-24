@@ -104,6 +104,8 @@ export function Movies() {
         movies={movies.map((m) => ({
           title: m.title,
           poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+          desc: m.overview,
+          backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
         }))}
         loading={loading}
       />
