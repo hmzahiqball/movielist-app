@@ -17,6 +17,8 @@ export function Home() {
   const [topRatedMovies, setTopRatedMovies] = useState<any[]>([])
   const [upcomingMovies, setUpcomingMovies] = useState<any[]>([])
   const [airingTodaySeries, setAiringTodaySeries] = useState<any[]>([])
+  const [genres, setGenres] = useState<Record<number, string>>({})
+  const [tvgenres, setTvGenres] = useState<Record<number, string>>({})
   const [onTheAirSeries, setOnTheAirSeries] = useState<any[]>([])
   const [trendingSeries, setTrendingSeries] = useState<any[]>([])
   const [topRatedSeries, setTopRatedSeries] = useState<any[]>([])
@@ -93,6 +95,50 @@ export function Home() {
     fetchHomeData()
   }, [])
 
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const res = await axios.get('https://api.themoviedb.org/3/genre/movie/list?language=en', {
+          headers: {
+            accept: 'application/json',
+            Authorization: AUTH_TOKEN,
+          },
+        })
+        const genreMap: Record<number, string> = {}
+        res.data.genres.forEach((g: any) => {
+          genreMap[g.id] = g.name
+        })
+        setGenres(genreMap)
+      } catch (err) {
+        console.error('Gagal fetch genre:', err)
+      }
+    }
+
+    fetchGenres()
+  }, [])
+
+  useEffect(() => {
+    const fetchTvGenres = async () => {
+      try {
+        const res = await axios.get('https://api.themoviedb.org/3/genre/tv/list?language=en', {
+          headers: {
+            accept: 'application/json',
+            Authorization: AUTH_TOKEN,
+          },
+        })
+        const genreMap: Record<number, string> = {}
+        res.data.genres.forEach((g: any) => {
+          genreMap[g.id] = g.name
+        })
+        setTvGenres(genreMap)
+      } catch (err) {
+        console.error('Gagal fetch genre:', err)
+      }
+    }
+
+    fetchTvGenres()
+  }, [])
+
   return (
     <div className="bg-black text-white">
       {/* Hero Section */}
@@ -160,6 +206,8 @@ export function Home() {
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
+            firstAirDate: m.release_date,
           }))}
         />
         <MovieSection
@@ -171,6 +219,8 @@ export function Home() {
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
+            firstAirDate: m.release_date,
           }))}
         />
         <MovieSection
@@ -182,6 +232,8 @@ export function Home() {
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
+            firstAirDate: m.release_date,
           }))}
         />
         <SeriesSection
@@ -193,6 +245,8 @@ export function Home() {
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
+            firstAirDate: m.first_air_date,
           }))}
         />
         <SeriesSection
@@ -204,6 +258,8 @@ export function Home() {
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
+            firstAirDate: m.first_air_date,
           }))}
         />
         <SeriesSection
@@ -215,6 +271,8 @@ export function Home() {
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
+            firstAirDate: m.first_air_date,
           }))}
         />
         <SeriesSection
@@ -226,6 +284,8 @@ export function Home() {
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
+            firstAirDate: m.first_air_date,
           }))}
         />
       </div>

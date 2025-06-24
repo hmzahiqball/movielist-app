@@ -10,6 +10,8 @@ type Movie = {
   bgimage?: string;
   desc: string;
   backdrop?: string;
+  genres?: string[];
+  firstAirDate?: string;
 };
 
 type MovieSectionProps = {
@@ -86,9 +88,22 @@ export function MovieSection({ title, filterKey, items }: MovieSectionProps) {
                   >
                     <div className="bg-black/60 backdrop-blur-sm p-4 h-full rounded-md flex flex-col justify-start">
                       <h3 className="text-lg font-bold mb-2">{movie.title}</h3>
-                      <p className="text-sm text-gray-300 leading-snug overflow-hidden text-ellipsis">
-                        {movie.desc}
-                      </p>
+                      <div className="overflow-y-scroll h-[200px]">
+                        <p className="text-sm text-gray-300 leading-snug">
+                          {movie.desc}
+                        </p>
+                      </div>
+                      {movie.firstAirDate && (
+                        <p className="text-xs text-gray-400 mt-2">
+                          <strong>Release Date:</strong> {new Date(movie.firstAirDate).toLocaleDateString()}
+                        </p>
+                      )}
+            
+                      {movie.genres && movie.genres.length > 0 && (
+                        <p className="text-xs text-gray-400 mt-1">
+                          <strong>Genres:</strong> {movie.genres.join(', ')}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>

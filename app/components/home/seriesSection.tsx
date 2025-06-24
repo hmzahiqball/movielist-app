@@ -10,6 +10,8 @@ type Series = {
   bgimage?: string;
   desc: string;
   backdrop?: string;
+  genres?: string[];
+  firstAirDate?: string;
 };
 
 type SeriesSectionProps = {
@@ -86,9 +88,22 @@ export function SeriesSection({ title, filterKey, items }: SeriesSectionProps) {
                   >
                     <div className="bg-black/60 backdrop-blur-sm p-4 h-full rounded-md flex flex-col justify-start">
                       <h3 className="text-lg font-bold mb-2">{Series.title}</h3>
-                      <p className="text-sm text-gray-300 leading-snug overflow-hidden text-ellipsis">
-                        {Series.desc}
-                      </p>
+                      <div className="overflow-y-scroll h-[200px]">
+                        <p className="text-sm text-gray-300 leading-snug">
+                          {Series.desc}
+                        </p>
+                      </div>
+                      {Series.firstAirDate && (
+                        <p className="text-xs text-gray-400 mt-2">
+                          <strong>First Air Date:</strong> {new Date(Series.firstAirDate).toLocaleDateString()}
+                        </p>
+                      )}
+
+                      {Series.genres && Series.genres.length > 0 && (
+                        <p className="text-xs text-gray-400 mt-1">
+                          <strong>Genres:</strong> {Series.genres.join(', ')}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
