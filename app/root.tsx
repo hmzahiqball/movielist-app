@@ -51,30 +51,48 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
+  let message = 'Oops! Something went wrong 😵‍💫'
+  let details = 'This page didn’t load as expected. Try again or go back.'
+  let stack: string | undefined
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
+    if (error.status === 404) {
+        message = '💀 404 Not Found'
+        details = "Bro... this page ghosted us. It's just not here 💅. Double check the URL maybe?"
+      } else {
+        message = '💥 Oopsies, something broke'
+        details = error.statusText || "The server said 'nah'. Try refreshing or go cry idk 🤷‍♂️"
+      }
+    } else if (import.meta.env.DEV && error instanceof Error) {
+      details = error.message
+      stack = error.stack
+      message = '💻 Dev Mode Panic'
+    }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
+    <main className="h-screen w-full flex flex-col justify-center items-center text-center px-6 bg-black text-white">
+      <div className="max-w-xl">
+        <h1 className="text-5xl font-bold mb-4 text-red-500">{message}</h1>
+        <p className="text-lg text-gray-300 mb-6">{details}</p>
+
+        {stack && (
+          <div className="text-left bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-auto max-h-[300px] w-full">
+            <h2 className="font-mono text-sm text-yellow-400 mb-2">Stack trace (for nerds):</h2>
+            <pre className="text-sm text-gray-400 whitespace-pre-wrap">
+              <code>{stack}</code>
+            </pre>
+          </div>
+        )}
+
+        <div className="mt-8">
+          <a
+            href="/"
+            className="inline-block px-6 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
+          >
+            🏠 Take me home
+          </a>
+        </div>
+      </div>
     </main>
-  );
+  )
 }

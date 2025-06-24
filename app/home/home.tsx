@@ -155,6 +155,7 @@ export function Home() {
           title="Trending movies"
           filterKey="popular"
           items={trendingMovies.map((m) => ({
+            id: m.id,
             title: m.title,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
@@ -165,6 +166,7 @@ export function Home() {
           title="Top rated movies"
           filterKey="top_rated"
           items={topRatedMovies.map((m) => ({
+            id: m.id,
             title: m.title,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
@@ -175,6 +177,7 @@ export function Home() {
           title="Upcoming movies"
           filterKey="upcoming"
           items={upcomingMovies.map((m) => ({
+            id: m.id,
             title: m.title,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
@@ -185,6 +188,7 @@ export function Home() {
           title="Airing today series"
           filterKey="airing_today"
           items={airingTodaySeries.map((m) => ({
+            id: m.id,
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
@@ -195,6 +199,7 @@ export function Home() {
           title="On the air series"
           filterKey="on_the_air"
           items={onTheAirSeries.map((m) => ({
+            id: m.id,
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
@@ -205,6 +210,7 @@ export function Home() {
           title="Trending series"
           filterKey="popular"
           items={trendingSeries.map((m) => ({
+            id: m.id,
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,
@@ -215,6 +221,7 @@ export function Home() {
           title="Top rated series"
           filterKey="top_rated"
           items={topRatedSeries.map((m) => ({
+            id: m.id,
             title: m.name,
             poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
             desc: m.overview,

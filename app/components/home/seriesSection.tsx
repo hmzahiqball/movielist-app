@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 type Series = {
+  id: number;
   title: string;
   poster: string;
   bgimage?: string;
@@ -55,7 +56,7 @@ export function SeriesSection({ title, filterKey, items }: SeriesSectionProps) {
                 }`}
               >
                 <div className="group relative w-48 min-h-[288px] rounded-lg bg-black text-white">
-                  <Link to={`/tv/${encodeURIComponent(Series.title)}`}>
+                  <Link to={`/tv/${encodeURIComponent(Series.id)}`}>
                     {/* Poster */}
                     <div className="p-2">
                       <img
