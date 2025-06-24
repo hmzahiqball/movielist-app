@@ -5,17 +5,10 @@ import { useSearchParams } from 'react-router'
 import axios from 'axios'
 
 const filterMap: Record<string, string> = {
-  'Now Playing': 'now_playing',
+  'Airing Today': 'airing_today',
+  'On The Air': 'on_the_air',
   Trending: 'popular',
   'Top Rated': 'top_rated',
-  Upcoming: 'upcoming',
-}
-
-const displayMap: Record<string, string> = {
-  Popular: 'Trending',
-  'Top Rated': 'Top Rated',
-  'Now Playing': 'Now Playing',
-  Upcoming: 'Upcoming',
 }
 
 const reverseFilterMap = Object.fromEntries(
@@ -24,10 +17,10 @@ const reverseFilterMap = Object.fromEntries(
 
 const filterOptions = Object.keys(filterMap)
 
-export function Movies() {
+export function TV() {
   const [searchParams] = useSearchParams()
   const urlFilterKey = searchParams.get('filter')
-  const initialFilter = reverseFilterMap[urlFilterKey || ''] || 'Now Playing'
+  const initialFilter = reverseFilterMap[urlFilterKey || ''] || 'Airing Today'
 
   const [activeFilter, setActiveFilter] = useState(initialFilter)
   const [currentPage, setCurrentPage] = useState(1)
@@ -41,7 +34,7 @@ export function Movies() {
     const fetchMovies = async () => {
       setLoading(true)
       try {
-        const endpoint = `https://api.themoviedb.org/3/movie/${filterMap[activeFilter]}?language=en-US&page=${currentPage}`
+        const endpoint = `https://api.themoviedb.org/3/tv/${filterMap[activeFilter]}?language=en-US&page=${currentPage}`
         const res = await axios.get(endpoint, {
           headers: {
             accept: 'application/json',

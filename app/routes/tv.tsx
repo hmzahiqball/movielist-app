@@ -1,13 +1,13 @@
 import type { Route } from "./+types/home";
-import { Home } from "../home/home";
+import { TV } from "../series/tv";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Home FilmScape" },
+    { title: "Series FilmScape" },
     { name: "description", content: "Welcome to FilmScape!" },
   ];
 }
 
-export default function TV() {
-  return <Home />;
+export default function TVRoutes() {
+  return <TV />;
 }
