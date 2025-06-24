@@ -32,6 +32,7 @@ export function Movies() {
   const [activeFilter, setActiveFilter] = useState(initialFilter)
   const [currentPage, setCurrentPage] = useState(1)
   const [movies, setMovies] = useState<any[]>([])
+  const [genres, setGenres] = useState<Record<number, string>>({})
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(false)
 
@@ -59,6 +60,28 @@ export function Movies() {
 
     fetchMovies()
   }, [activeFilter, currentPage])
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const res = await axios.get('https://api.themoviedb.org/3/genre/movie/list?language=en', {
+          headers: {
+            accept: 'application/json',
+            Authorization: AUTH_TOKEN,
+          },
+        })
+        const genreMap: Record<number, string> = {}
+        res.data.genres.forEach((g: any) => {
+          genreMap[g.id] = g.name
+        })
+        setGenres(genreMap)
+      } catch (err) {
+        console.error('Gagal fetch genre:', err)
+      }
+    }
+
+    fetchGenres()
+  }, [])
 
   const handlePageChange = (dir: 'prev' | 'next') => {
     if (dir === 'prev' && currentPage > 1) setCurrentPage((prev) => prev - 1)
@@ -106,6 +129,8 @@ export function Movies() {
           poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
           desc: m.overview,
           backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+          genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
+          firstAirDate: m.release_date,
         }))}
         loading={loading}
       />

@@ -5,7 +5,14 @@ export function MovieGrid({
   movies,
   loading,
 }: {
-  movies: { title: string; poster: string, desc?: string, backdrop?: string }[]
+  movies: {
+    title: string
+    poster: string
+    desc?: string
+    backdrop?: string
+    genres?: string[]
+    firstAirDate?: string
+  }[]
   loading?: boolean
 }) {
   const skeletons = new Array(25).fill(null) // default 25 item sesuai pagination
@@ -29,9 +36,11 @@ export function MovieGrid({
                 poster={movie.poster}
                 desc={movie.desc}
                 backdrop={movie.backdrop}
+                genres={movie.genres}
+                firstAirDate={movie.firstAirDate}
                 onHover={setHoveredIndex}
                 isHovered={hoveredIndex === i}
-                isLastColumn={(i + 1) % 5 === 0 || (i + 1) % 5 === 4} // contoh: jika grid 5 kolom, tapi kolom ke 4 dan 5 termasuk last column
+                isLastColumn={(i + 1) % 5 === 0 || (i + 1) % 5 === 4}
               />
             ))}
       </div>

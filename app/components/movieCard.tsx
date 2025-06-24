@@ -6,6 +6,8 @@ type MovieCardProps = {
   poster: string
   desc?: string
   backdrop?: string
+  genres?: string[]
+  firstAirDate?: string
   index: number
   onHover: (index: number | null) => void
   isHovered: boolean
@@ -19,6 +21,8 @@ export function MovieCard({
   desc = '',
   backdrop = '',
   index,
+  firstAirDate,
+  genres,
   onHover,
   isHovered,
   isLastColumn = false,
@@ -35,7 +39,7 @@ export function MovieCard({
           alt={title}
           className="w-full h-auto object-cover rounded-md shadow-md"
         />
-        <p className="text-sm text-center">{title}</p>
+        <p className="text-sm text-center mt-2 font-semibold">{title}</p>
       </Link>
 
       {/* Expanded Card */}
@@ -55,9 +59,22 @@ export function MovieCard({
       >
         <div className="bg-black/60 backdrop-blur-sm p-4 h-full rounded-md flex flex-col justify-start">
           <h3 className="text-lg font-bold mb-2">{title}</h3>
-          <p className="text-sm text-gray-300 leading-snug overflow-hidden text-ellipsis">
-            {desc}
-          </p>
+          <div className="overflow-y-scroll h-[200px]">
+            <p className="text-sm text-gray-300 leading-snug">
+              {desc}
+            </p>
+          </div>
+          {firstAirDate && (
+            <p className="text-xs text-gray-400 mt-2">
+              <strong>Release Date:</strong> {new Date(firstAirDate).toLocaleDateString()}
+            </p>
+          )}
+
+          {genres && genres.length > 0 && (
+            <p className="text-xs text-gray-400 mt-1">
+              <strong>Genres:</strong> {genres.join(', ')}
+            </p>
+          )}
         </div>
       </div>
     </div>

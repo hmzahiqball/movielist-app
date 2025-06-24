@@ -6,6 +6,7 @@ import 'swiper/css/navigation'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import { Swiper as SwiperClass } from 'swiper'
 import { MovieSection } from '../components/home/movieSection'
+import { SeriesSection } from '../components/home/seriesSection'
 import axios from 'axios'
 
 export function Home() {
@@ -180,7 +181,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
           }))}
         />
-        <MovieSection
+        <SeriesSection
           title="Airing today series"
           filterKey="airing_today"
           items={airingTodaySeries.map((m) => ({
@@ -190,7 +191,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
           }))}
         />
-        <MovieSection
+        <SeriesSection
           title="On the air series"
           filterKey="on_the_air"
           items={onTheAirSeries.map((m) => ({
@@ -200,7 +201,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
           }))}
         />
-        <MovieSection
+        <SeriesSection
           title="Trending series"
           filterKey="popular"
           items={trendingSeries.map((m) => ({
@@ -210,7 +211,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
           }))}
         />
-        <MovieSection
+        <SeriesSection
           title="Top rated series"
           filterKey="top_rated"
           items={topRatedSeries.map((m) => ({

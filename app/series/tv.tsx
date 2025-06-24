@@ -24,14 +24,15 @@ export function TV() {
 
   const [activeFilter, setActiveFilter] = useState(initialFilter)
   const [currentPage, setCurrentPage] = useState(1)
-  const [movies, setMovies] = useState<any[]>([])
+  const [series, setSeries] = useState<any[]>([])
+  const [genres, setGenres] = useState<Record<number, string>>({})
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(false)
 
   const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI'
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchSeries = async () => {
       setLoading(true)
       try {
         const endpoint = `https://api.themoviedb.org/3/tv/${filterMap[activeFilter]}?language=en-US&page=${currentPage}`
@@ -41,17 +42,39 @@ export function TV() {
             Authorization: `${AUTH_TOKEN}`,
           },
         })
-        setMovies(res.data.results)
+        setSeries(res.data.results)
         setTotalPages(res.data.total_pages)
       } catch (err) {
-        console.error('Gagal fetch movies:', err)
+        console.error('Gagal fetch series:', err)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchMovies()
+    fetchSeries()
   }, [activeFilter, currentPage])
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const res = await axios.get('https://api.themoviedb.org/3/genre/tv/list?language=en', {
+          headers: {
+            accept: 'application/json',
+            Authorization: AUTH_TOKEN,
+          },
+        })
+        const genreMap: Record<number, string> = {}
+        res.data.genres.forEach((g: any) => {
+          genreMap[g.id] = g.name
+        })
+        setGenres(genreMap)
+      } catch (err) {
+        console.error('Gagal fetch genre:', err)
+      }
+    }
+
+    fetchGenres()
+  }, [])
 
   const handlePageChange = (dir: 'prev' | 'next') => {
     if (dir === 'prev' && currentPage > 1) setCurrentPage((prev) => prev - 1)
@@ -87,18 +110,20 @@ export function TV() {
 
   return (
     <div className="min-h-screen bg-black text-white px-4 py-10">
-      <h1 className="text-3xl font-bold text-center mb-8 mt-10">{activeFilter} Movies</h1>
+      <h1 className="text-3xl font-bold text-center mb-8 mt-10">{activeFilter} Series</h1>
       <MovieFilter
         options={filterOptions}
         active={activeFilter}
         onChange={handleFilterChange}
       />
       <MovieGrid
-        movies={movies.map((m) => ({
+        movies={series.map((m) => ({
           title: m.name,
           poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
           desc: m.overview,
           backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+          genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
+          firstAirDate: m.first_air_date,
         }))}
         loading={loading}
       />
