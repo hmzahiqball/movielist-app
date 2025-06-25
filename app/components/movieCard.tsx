@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router';
 
 type MovieCardProps = {
+  id: number
   title: string
   poster: string
   desc?: string
@@ -16,6 +17,7 @@ type MovieCardProps = {
 
 
 export function MovieCard({
+  id,
   title,
   poster,
   desc = '',
@@ -33,7 +35,7 @@ export function MovieCard({
       onMouseEnter={() => onHover(index)}
       onMouseLeave={() => onHover(null)}
     >
-      <Link to={`/movie/${encodeURIComponent(title)}`}>
+      <Link to={`/movies/${encodeURIComponent(id)}`}>
         <img
           src={poster}
           alt={title}

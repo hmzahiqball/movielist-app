@@ -7,7 +7,11 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import { Swiper as SwiperClass } from 'swiper'
 import { MovieSection } from '../components/home/movieSection'
 import { SeriesSection } from '../components/home/seriesSection'
-import axios from 'axios'
+import {
+  fetchHomeData,
+  fetchMovieGenres,
+  fetchTvGenres,
+} from "../lib/api";
 
 export function Home() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null)
@@ -23,121 +27,40 @@ export function Home() {
   const [trendingSeries, setTrendingSeries] = useState<any[]>([])
   const [topRatedSeries, setTopRatedSeries] = useState<any[]>([])
 
-  const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI'
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const {
+          nowPlaying,
+          trendingMovies,
+          topRatedMovies,
+          upcomingMovies,
+          airingTodaySeries,
+          onTheAirSeries,
+          trendingSeries,
+          topRatedSeries,
+        } = await fetchHomeData();
+
+        setHeroMovies(nowPlaying);
+        setTrendingMovies(trendingMovies);
+        setTopRatedMovies(topRatedMovies);
+        setUpcomingMovies(upcomingMovies);
+        setAiringTodaySeries(airingTodaySeries);
+        setOnTheAirSeries(onTheAirSeries);
+        setTrendingSeries(trendingSeries);
+        setTopRatedSeries(topRatedSeries);
+      } catch (err) {
+        console.error("Gagal ambil home data:", err);
+      }
+    };
+
+    loadData();
+  }, []);
 
   useEffect(() => {
-    const fetchHomeData = async () => {
-      try {
-        const [nowPlayingRes, trendingMoviesRes, topRatedRes, upcomingMoviesRes, airingTodaySeriesRes, onTheAirSeriesRes, trendingSeriesRes, topRatedSeriesRes] = await Promise.all([
-          axios.get('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-          axios.get('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-          axios.get('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-          axios.get('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-          axios.get('https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-          axios.get('https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-          axios.get('https://api.themoviedb.org/3/tv/popular?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-          axios.get('https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1', {
-            headers: {
-              accept: 'application/json',
-              Authorization: `${AUTH_TOKEN}`,
-            },
-          }),
-        ])
-
-        setHeroMovies(nowPlayingRes.data.results)
-        setTrendingMovies(trendingMoviesRes.data.results)
-        setTopRatedMovies(topRatedRes.data.results)
-        setUpcomingMovies(upcomingMoviesRes.data.results)
-        setAiringTodaySeries(airingTodaySeriesRes.data.results)
-        setOnTheAirSeries(onTheAirSeriesRes.data.results)
-        setTrendingSeries(trendingSeriesRes.data.results)
-        setTopRatedSeries(topRatedSeriesRes.data.results)
-      } catch (err) {
-        console.error('Failed to fetch home data:', err)
-      }
-    }
-
-    fetchHomeData()
-  }, [])
-
-  useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const res = await axios.get('https://api.themoviedb.org/3/genre/movie/list?language=en', {
-          headers: {
-            accept: 'application/json',
-            Authorization: AUTH_TOKEN,
-          },
-        })
-        const genreMap: Record<number, string> = {}
-        res.data.genres.forEach((g: any) => {
-          genreMap[g.id] = g.name
-        })
-        setGenres(genreMap)
-      } catch (err) {
-        console.error('Gagal fetch genre:', err)
-      }
-    }
-
-    fetchGenres()
-  }, [])
-
-  useEffect(() => {
-    const fetchTvGenres = async () => {
-      try {
-        const res = await axios.get('https://api.themoviedb.org/3/genre/tv/list?language=en', {
-          headers: {
-            accept: 'application/json',
-            Authorization: AUTH_TOKEN,
-          },
-        })
-        const genreMap: Record<number, string> = {}
-        res.data.genres.forEach((g: any) => {
-          genreMap[g.id] = g.name
-        })
-        setTvGenres(genreMap)
-      } catch (err) {
-        console.error('Gagal fetch genre:', err)
-      }
-    }
-
-    fetchTvGenres()
-  }, [])
+    fetchMovieGenres().then(setGenres).catch(console.error);
+    fetchTvGenres().then(setTvGenres).catch(console.error);
+  }, []);
 
   return (
     <div className="bg-black text-white">

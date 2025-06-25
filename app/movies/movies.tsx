@@ -2,20 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { MovieFilter } from '../components/movieFilter'
 import { MovieGrid } from '../components/movieGrid'
 import { useSearchParams } from 'react-router'
-import axios from 'axios'
+import {
+  fetchMoviesByCategory,
+  fetchMovieGenres,
+} from '../lib/api'
 
 const filterMap: Record<string, string> = {
   'Now Playing': 'now_playing',
   Trending: 'popular',
   'Top Rated': 'top_rated',
   Upcoming: 'upcoming',
-}
-
-const displayMap: Record<string, string> = {
-  Popular: 'Trending',
-  'Top Rated': 'Top Rated',
-  'Now Playing': 'Now Playing',
-  Upcoming: 'Upcoming',
 }
 
 const reverseFilterMap = Object.fromEntries(
@@ -36,21 +32,14 @@ export function Movies() {
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(false)
 
-  const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI'
-
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true)
       try {
-        const endpoint = `https://api.themoviedb.org/3/movie/${filterMap[activeFilter]}?language=en-US&page=${currentPage}`
-        const res = await axios.get(endpoint, {
-          headers: {
-            accept: 'application/json',
-            Authorization: `${AUTH_TOKEN}`,
-          },
-        })
-        setMovies(res.data.results)
-        setTotalPages(res.data.total_pages)
+        const category = filterMap[activeFilter] as 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
+        const { movies, totalPages } = await fetchMoviesByCategory(category, currentPage)
+        setMovies(movies)
+        setTotalPages(totalPages)
       } catch (err) {
         console.error('Gagal fetch movies:', err)
       } finally {
@@ -62,25 +51,9 @@ export function Movies() {
   }, [activeFilter, currentPage])
 
   useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const res = await axios.get('https://api.themoviedb.org/3/genre/movie/list?language=en', {
-          headers: {
-            accept: 'application/json',
-            Authorization: AUTH_TOKEN,
-          },
-        })
-        const genreMap: Record<number, string> = {}
-        res.data.genres.forEach((g: any) => {
-          genreMap[g.id] = g.name
-        })
-        setGenres(genreMap)
-      } catch (err) {
-        console.error('Gagal fetch genre:', err)
-      }
-    }
-
-    fetchGenres()
+    fetchMovieGenres()
+      .then(setGenres)
+      .catch((err) => console.error('Gagal fetch genre:', err))
   }, [])
 
   const handlePageChange = (dir: 'prev' | 'next') => {
@@ -125,6 +98,7 @@ export function Movies() {
       />
       <MovieGrid
         movies={movies.map((m) => ({
+          id: m.id,
           title: m.title,
           poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
           desc: m.overview,

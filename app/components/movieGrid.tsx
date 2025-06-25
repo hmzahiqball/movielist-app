@@ -6,6 +6,7 @@ export function MovieGrid({
   loading,
 }: {
   movies: {
+    id: number
     title: string
     poster: string
     desc?: string
@@ -32,6 +33,7 @@ export function MovieGrid({
               <MovieCard
                 key={i}
                 index={i}
+                id={movie.id}
                 title={movie.title}
                 poster={movie.poster}
                 desc={movie.desc}

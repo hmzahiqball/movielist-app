@@ -58,7 +58,7 @@ export function MovieSection({ title, filterKey, items }: MovieSectionProps) {
                 }`}
               >
                 <div className="group relative w-48 min-h-[288px] rounded-lg bg-black text-white">
-                  <Link to={`/movie/${encodeURIComponent(movie.id)}`}>
+                  <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
                     {/* Poster */}
                     <div className="p-2">
                       <img
