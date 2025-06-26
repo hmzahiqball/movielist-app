@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ...'; // potong biar ga kepanjangan
+const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI';
 
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",

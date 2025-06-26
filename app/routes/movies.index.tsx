@@ -10,5 +10,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function MoviesRoutes() {
-  return <Outlet />;
+  return <Movies />;
 }
