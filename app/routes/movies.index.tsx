@@ -9,6 +9,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function MoviesRoutes() {
+export default function MoviesIndexRoute() {
   return <Movies />;
 }

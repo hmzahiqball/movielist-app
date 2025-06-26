@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface MovieDetailProps {
   id: string;
@@ -28,7 +29,11 @@ export function MovieDetail({ id }: MovieDetailProps) {
   if (!movie) return <div className="text-white text-center mt-20">Movie not found</div>;
 
   return (
-    <div className="relative min-h-screen text-white pt-32">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      className="relative min-h-screen text-white pt-32"
+    >
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -42,13 +47,21 @@ export function MovieDetail({ id }: MovieDetailProps) {
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pb-20 flex flex-col md:flex-row gap-8 items-center">
-        <img
+        <motion.img
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ ease: 'easeInOut', duration: 1 }}
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className="w-60 md:w-72 rounded-lg shadow-lg"
         />
 
-        <div className="flex flex-col gap-4">
+        <motion.div
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ ease: 'easeInOut', duration: 1 }}
+          className="flex flex-col gap-4"
+        >
           <h1 className="text-4xl font-bold">{movie.title}</h1>
 
           <p className="text-lg text-gray-300">
@@ -58,20 +71,29 @@ export function MovieDetail({ id }: MovieDetailProps) {
 
           <div className="flex flex-wrap gap-2">
             {movie.genres.map((genre: any) => (
-              <span
+              <motion.span
                 key={genre.id}
-                className="bg-white text-black text-sm font-medium px-3 py-1 rounded-full"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ ease: 'easeInOut', duration: 1 }}
+                className="bg-black/60 backdrop-blur-sm text-sm font-medium px-3 py-1 rounded-md"
               >
                 {genre.name}
-              </span>
+              </motion.span>
             ))}
           </div>
 
-          <p className="max-w-2xl text-base text-gray-200 leading-relaxed">
+          <motion.p
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ ease: 'easeInOut', duration: 1 }}
+            className="max-w-2xl text-base text-gray-200 leading-relaxed"
+          >
             {movie.overview}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
