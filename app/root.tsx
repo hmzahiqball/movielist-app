@@ -63,10 +63,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         message = '💥 Oopsies, something broke'
         details = error.statusText || "The server said 'nah'. Try refreshing or go cry idk 🤷‍♂️"
       }
-    } else if (import.meta.env.DEV && error instanceof Error) {
-      details = error.message
-      stack = error.stack
+    } else {
       message = '💻 Dev Mode Panic'
+      details = 'Something wrong happened. Check the console for more info.'
+      stack = error instanceof Error ? error.stack : undefined
     }
 
   return (

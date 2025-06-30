@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fetchMovieById } from "../lib/api";
 import { LoadingThreeDotsPulse } from '../components/loadingDots';
+import { CastSlider } from '../components/detail/castSlider';
 import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 import { useRef } from "react";
@@ -132,6 +133,17 @@ export function MovieDetail({ id }: MovieDetailProps) {
             {movie.overview}
           </motion.p>
         </motion.div>
+      </div>
+
+      {/* 🎬 CAST SECTION */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pb-10 mt-8">
+        <div className="mb-4">
+          <h1 className="text-2xl font-bold relative inline-block">
+            Full Cast
+            <span className="absolute bottom-0 left-0 w-1/2 h-[3px] bg-red-500 rounded-full" />
+          </h1>
+        </div>
+        <CastSlider movieId={id} />
       </div>
     </motion.div>
   );

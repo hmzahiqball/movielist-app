@@ -98,3 +98,69 @@ export const fetchMovieById = async (id: string) => {
     throw err;
   }
 };
+
+// Fetch movie cast by ID
+export const fetchMovieCastById = async (id: string) => {
+  try {
+    const res = await api.get(`/movie/${id}/credits?language=en-US`);
+    return res.data.cast;
+  } catch (err) {
+    console.error('Failed to fetch movie cast:', err);
+    throw err;
+  }
+}
+
+// Fetch movie video by ID
+export const fetchMovieVideoById = async (id: string) => {
+  try {
+    const res = await api.get(`/movie/${id}/videos?language=en-US`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch movie videos:', err);
+    throw err;
+  }
+}
+
+// Fetch movie recomandation by ID
+export const fetchMovieReviewsById = async (id: string, page: string) => {
+  try {
+    const res = await api.get(`/movie/${id}/reviews?language=en-US&page=${page}`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch movie reviews:', err);
+    throw err;
+  }
+}
+
+// Fetch movie recomandation by ID
+export const fetchRecomendationMovieDetail = async (id: string, page: string) => {
+  try {
+    const res = await api.get(`/movie/${id}/recommendations?language=en-US&page=${page}`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch movie recommendations:', err);
+    throw err;
+  }
+}
+
+// Fetch movie recomandation by ID
+export const fetchSimilarMovieDetail = async (id: string, page: string) => {
+  try {
+    const res = await api.get(`/movie/${id}/similar?language=en-US&page=${page}`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch similar movie :', err);
+    throw err;
+  }
+}
+
+// Fetch movie recomandation by ID
+export const fetchMovieKeywordById = async (id: string) => {
+  try {
+    const res = await api.get(`/movie/${id}/keywords`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch similar movie :', err);
+    throw err;
+  }
+}

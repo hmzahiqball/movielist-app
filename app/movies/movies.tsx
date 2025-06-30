@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { MovieFilter } from '../components/movieFilter'
-import { MovieGrid } from '../components/movieGrid'
+import { MovieFilter } from '../components/list/movieFilter'
+import { MovieGrid } from '../components/list/movieGrid'
 import { useSearchParams } from 'react-router'
 import {
   fetchMoviesByCategory,
