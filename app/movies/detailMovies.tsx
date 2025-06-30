@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { fetchMovieById } from "../lib/api";
+import { LoadingThreeDotsPulse } from '../components/loadingDots';
+import { animate, stagger } from "motion";
+import { splitText } from "motion-plus";
+import { useRef } from "react";
 
 interface MovieDetailProps {
   id: string;
@@ -8,24 +13,51 @@ interface MovieDetailProps {
 export function MovieDetail({ id }: MovieDetailProps) {
   const [movie, setMovie] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const overviewRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI', // Ganti dengan API key lo
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchMovieById(id);
         setMovie(data);
+        document.title = `${data.title} - Filmscape`;
+      } catch (error) {
+        console.error("Error loading movie:", error);
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => console.error('Failed to fetch movie:', err));
+      }
+    };
+
+    fetchData();
   }, [id]);
 
-  if (loading) return <div className="text-white text-center mt-20">Loading...</div>;
+  useEffect(() => {
+    document.fonts.ready.then(() => {
+      if (!overviewRef.current) return;
+
+      overviewRef.current.style.visibility = "visible";
+      const { words: overviewWords } = splitText(overviewRef.current);
+
+      animate(
+        overviewWords,
+        { opacity: [0, 1], y: [10, 0] },
+        {
+            type: "spring",
+            duration: 1.5,
+            bounce: 0,
+            delay: stagger(0.05),
+        }
+      );
+    });
+  }, [movie]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <LoadingThreeDotsPulse />
+      </div>
+    );
+  }
   if (!movie) return <div className="text-white text-center mt-20">Movie not found</div>;
 
   return (
@@ -48,18 +80,24 @@ export function MovieDetail({ id }: MovieDetailProps) {
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pb-20 flex flex-col md:flex-row gap-8 items-center">
         <motion.img
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ ease: 'easeInOut', duration: 1 }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+              duration: 2,
+              scale: { type: "spring", visualDuration: 0.4, bounce: 0.2 },
+          }}
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className="w-60 md:w-72 rounded-lg shadow-lg"
         />
 
         <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ ease: 'easeInOut', duration: 1 }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+              duration: 2,
+              scale: { type: "spring", visualDuration: 0.4, bounce: 0.2 },
+          }}
           className="flex flex-col gap-4"
         >
           <h1 className="text-4xl font-bold">{movie.title}</h1>
@@ -73,9 +111,12 @@ export function MovieDetail({ id }: MovieDetailProps) {
             {movie.genres.map((genre: any) => (
               <motion.span
                 key={genre.id}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ ease: 'easeInOut', duration: 1 }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 1,
+                    scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+                }}
                 className="bg-black/60 backdrop-blur-sm text-sm font-medium px-3 py-1 rounded-md"
               >
                 {genre.name}
@@ -84,10 +125,9 @@ export function MovieDetail({ id }: MovieDetailProps) {
           </div>
 
           <motion.p
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ ease: 'easeInOut', duration: 1 }}
-            className="max-w-2xl text-base text-gray-200 leading-relaxed"
+            ref={overviewRef}
+            className="max-w-2xl text-base text-gray-200 leading-relaxed split-text"
+            style={{ visibility: "hidden" }}
           >
             {movie.overview}
           </motion.p>

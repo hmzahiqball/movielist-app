@@ -3,7 +3,7 @@ import { Movies } from "../movies/movies";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Movies FilmScape" },
+    { title: "Movies - Filmscape MovieApp"},
     { name: "description", content: "Welcome to FilmScape!" },
   ];
 }

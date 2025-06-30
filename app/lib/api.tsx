@@ -87,3 +87,14 @@ export const fetchTvGenres = async (): Promise<Record<number, string>> => {
   });
   return genreMap;
 };
+
+// Fetch movie by ID
+export const fetchMovieById = async (id: string) => {
+  try {
+    const res = await api.get(`/movie/${id}?language=en-US`);
+    return res.data;
+  } catch (err) {
+    console.error('Failed to fetch movie detail:', err);
+    throw err;
+  }
+};

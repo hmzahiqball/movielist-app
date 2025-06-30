@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Movies Outlet FilmScape" },
+    { title: "Movies - Filmscape MovieApp"},
     { name: "description", content: "Welcome to FilmScape!" },
   ];
 }
