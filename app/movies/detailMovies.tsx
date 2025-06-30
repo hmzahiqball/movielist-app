@@ -14,7 +14,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: 'Bearer YOUR_API_KEY_HERE', // Ganti dengan API key lo
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI', // Ganti dengan API key lo
       },
     })
       .then((res) => res.json())

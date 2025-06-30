@@ -1,6 +1,5 @@
-import type { Route } from "./+types/movies";
+import type { Route } from "./+types/movies.index";
 import { Movies } from "../movies/movies";
-import { Outlet } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
