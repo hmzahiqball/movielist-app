@@ -6,6 +6,7 @@ import { CastSlider } from '../components/detail/castSlider';
 import { VideoSlider } from '../components/detail/videoSlider';
 import { RecommendationMovies } from '../components/detail/recomMovieSlider';
 import { SimilarMovies } from '../components/detail/similarMovieSlider';
+import { ReviewUsers } from '../components/detail/reviewUser';
 import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 
@@ -160,6 +161,13 @@ export function MovieDetail({ id }: MovieDetailProps) {
       <div className="bg-black w-full py-10">
         <div className="max-w-6xl mx-auto px-6">
           <SimilarMovies movieId={id} />
+        </div>
+      </div>
+
+      {/* REVIEW MOVIES SECTION */}
+      <div className="bg-black w-full py-10">
+        <div className="max-w-6xl mx-auto px-6">
+          <ReviewUsers movieId={id} />
         </div>
       </div>
     </>
