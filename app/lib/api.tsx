@@ -182,7 +182,7 @@ export const fetchRecomendationTvDetail = async (id: string, page: string) => {
     const res = await api.get(`/tv/${id}/recommendations?language=en-US&page=${page}`);
     return res.data.results;
   } catch (err) {
-    console.error('Failed to fetch movie recommendations:', err);
+    console.error('Failed to fetch series recommendations:', err);
     throw err;
   }
 }
@@ -194,6 +194,17 @@ export const fetchSimilarMovieDetail = async (id: string, page: string) => {
     return res.data.results;
   } catch (err) {
     console.error('Failed to fetch similar movie :', err);
+    throw err;
+  }
+}
+
+// Fetch series recomandation by ID
+export const fetchSimilarTvDetail = async (id: string, page: string) => {
+  try {
+    const res = await api.get(`/tv/${id}/similar?language=en-US&page=${page}`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch similar series :', err);
     throw err;
   }
 }

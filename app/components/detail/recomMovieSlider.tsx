@@ -51,7 +51,6 @@ export function RecommendationMovies({ Id, Type }: RecommendationMoviesProps) {
         .catch((err) => console.error('Gagal fetch genre:', err))
     }, [])
   }
-  
 
   if (movies.length === 0) return null;
 
@@ -124,7 +123,5 @@ export function RecommendationMovies({ Id, Type }: RecommendationMoviesProps) {
       </div>
     );
   }
-
-  
 }
 

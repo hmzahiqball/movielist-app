@@ -168,7 +168,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
       <div className="bg-black w-full py-10">
         <div className="max-w-6xl mx-auto px-6">
           <LazyShow>
-            <SimilarMovies movieId={id} />
+            <SimilarMovies Id={id} Type="movies" />
           </LazyShow>
         </div>
       </div>
