@@ -28,7 +28,7 @@ export function CastSlider({ movieId }: CastSliderProps) {
   if (cast.length === 0) return null;
 
   return (
-    <div className="mt-10">
+    <div className="mt-5">
         <div className="mb-4">
           <h1 className="text-3xl font-bold relative inline-block">
             Full Cast

@@ -3,16 +3,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import {
-  fetchRecomendationMovieDetail,
+  fetchSimilarMovieDetail,
   fetchMovieGenres,
 } from '../../lib/api';
 import { MovieCard } from "../list/movieCard";
 
-interface RecommendationMoviesProps {
+interface SimilarMoviesProps {
   movieId: string;
 }
 
-export function RecommendationMovies({ movieId }: RecommendationMoviesProps) {
+export function SimilarMovies({ movieId }: SimilarMoviesProps) {
   const [movies, setMovies] = useState<any[]>([]);
   const [genres, setGenres] = useState<Record<number, string>>({})
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -20,7 +20,7 @@ export function RecommendationMovies({ movieId }: RecommendationMoviesProps) {
   useEffect(() => {
     const loadMovies = async () => {
       try {
-        const data = await fetchRecomendationMovieDetail(movieId, "1");
+        const data = await fetchSimilarMovieDetail(movieId, "1");
         setMovies(data);
       } catch (err) {
         console.error("Gagal load rekomendasi film:", err);
@@ -42,7 +42,7 @@ export function RecommendationMovies({ movieId }: RecommendationMoviesProps) {
     <div className="mt-2">
       <div className="mb-4">
         <h1 className="text-3xl font-bold relative inline-block text-white">
-          Recommended Movies
+          Similar Movies
           <span className="absolute bottom-0 left-0 w-3/4 h-[3px] bg-red-500 rounded-full" />
         </h1>
       </div>
