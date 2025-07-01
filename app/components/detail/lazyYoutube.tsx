@@ -15,10 +15,10 @@ export default function LazyYoutube({ videoId, title }: LazyYoutubeProps) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // stop observing setelah visible
+          observer.disconnect();
         }
       },
-      { threshold: 0.25 } // ketika 25% dari elemen masuk viewport
+      { threshold: 0.25 }
     );
 
     if (containerRef.current) observer.observe(containerRef.current);

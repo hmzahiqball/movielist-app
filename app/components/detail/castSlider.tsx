@@ -16,7 +16,7 @@ export function CastSlider({ movieId }: CastSliderProps) {
     const loadCast = async () => {
       try {
         const data = await fetchMovieCastById(movieId);
-        setCast(data.slice(0, 20)); // Ambil 20 cast teratas aja
+        setCast(data);
       } catch (err) {
         console.error("Gagal load cast:", err);
       }
@@ -51,7 +51,7 @@ export function CastSlider({ movieId }: CastSliderProps) {
                     src={
                       person.profile_path
                         ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
-                        : "https://via.placeholder.com/100x100?text=No+Image"
+                        : "https://placehold.co/185x278"
                     }
                     alt={person.name}
                     className="w-30 h-40 rounded-sm object-cover border-white mb-1"

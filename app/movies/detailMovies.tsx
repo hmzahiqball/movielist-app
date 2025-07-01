@@ -4,6 +4,7 @@ import { fetchMovieById } from "../lib/api";
 import { LoadingThreeDotsPulse } from '../components/loadingDots';
 import { CastSlider } from '../components/detail/castSlider';
 import { VideoSlider } from '../components/detail/videoSlider';
+import { RecommendationMovies } from '../components/detail/recomMovieSlider';
 import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 import { useRef } from "react";
@@ -63,9 +64,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
   if (!movie) return <div className="text-white text-center mt-20">Movie not found</div>;
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
+    <div
       className="relative min-h-screen text-white pt-32"
     >
       {/* Background image */}
@@ -85,7 +84,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-              duration: 2,
+              duration: 1.5,
               scale: { type: "spring", visualDuration: 0.4, bounce: 0.2 },
           }}
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -97,7 +96,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-              duration: 2,
+              duration: 1.5,
               scale: { type: "spring", visualDuration: 0.4, bounce: 0.2 },
           }}
           className="flex flex-col gap-4"
@@ -116,7 +115,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
-                    duration: 1,
+                    duration: 1.5,
                     scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
                 }}
                 className="bg-black/60 backdrop-blur-sm text-sm font-medium px-3 py-1 rounded-md"
@@ -145,7 +144,12 @@ export function MovieDetail({ id }: MovieDetailProps) {
       <div className="relative z-10 max-w-6xl mx-auto px-6 pb-10 mt-8">
         <VideoSlider movieId={id} movieName={movie.title} />
       </div>
-    </motion.div>
+
+      {/* 🎬 RECOMENDATION SECTION */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pb-10 mt-8">
+        <RecommendationMovies movieId={id} />
+      </div>
+    </div>
   );
 }
 
