@@ -177,7 +177,7 @@ export function TvDetail({ id }: TvDetailProps) {
       <div className="bg-black w-full py-10">
         <div className="max-w-6xl mx-auto px-6">
           <LazyShow>
-            <ReviewUsers movieId={id} />
+            <ReviewUsers Id={id} Type="series" />
           </LazyShow>
         </div>
       </div>

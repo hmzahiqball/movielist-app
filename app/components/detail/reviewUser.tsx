@@ -3,21 +3,28 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import {
-  fetchMovieReviewsById
+  fetchMovieReviewsById,
+  fetchTvReviewsById
 } from '../../lib/api';
 import { ReviewCard } from "./reviewCard";
 
 interface ReviewUsersProps {
-  movieId: string;
+  Id: string;
+  Type: string;
 }
 
-export function ReviewUsers({ movieId }: ReviewUsersProps) {
+export function ReviewUsers({ Id, Type }: ReviewUsersProps) {
   const [reviews, setReviews] = useState<any[]>([]);
 
   useEffect(() => {
     const loadMovies = async () => {
       try {
-        const data = await fetchMovieReviewsById(movieId, "1");
+        let data;
+        if (Type === "movies") {
+          data = await fetchMovieReviewsById(Id, "1");
+        } else if (Type === "series") {
+          data = await fetchTvReviewsById(Id, "1");
+        }
         setReviews(data);
       } catch (err) {
         console.error("Gagal load rekomendasi film:", err);
@@ -25,7 +32,7 @@ export function ReviewUsers({ movieId }: ReviewUsersProps) {
     };
 
     loadMovies();
-  }, [movieId]);
+  }, [Id]);
 
   if (reviews.length === 0) return null;
 

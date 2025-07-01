@@ -154,10 +154,21 @@ export const fetchTvVideoById = async (id: string) => {
   }
 }
 
-// Fetch movie recomandation by ID
+// Fetch movie reviews by ID
 export const fetchMovieReviewsById = async (id: string, page: string) => {
   try {
     const res = await api.get(`/movie/${id}/reviews?language=en-US&page=${page}`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch movie reviews:', err);
+    throw err;
+  }
+}
+
+// Fetch series reviews by ID
+export const fetchTvReviewsById = async (id: string, page: string) => {
+  try {
+    const res = await api.get(`/tv/${id}/reviews?language=en-US&page=${page}`);
     return res.data.results;
   } catch (err) {
     console.error('Failed to fetch movie reviews:', err);
