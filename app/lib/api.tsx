@@ -121,6 +121,17 @@ export const fetchMovieCastById = async (id: string) => {
   }
 }
 
+// Fetch series cast by ID
+export const fetchTvCastById = async (id: string) => {
+  try {
+    const res = await api.get(`/tv/${id}/credits?language=en-US`);
+    return res.data.cast;
+  } catch (err) {
+    console.error('Failed to fetch series cast:', err);
+    throw err;
+  }
+}
+
 // Fetch movie video by ID
 export const fetchMovieVideoById = async (id: string) => {
   try {

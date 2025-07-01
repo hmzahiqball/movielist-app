@@ -3,19 +3,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay } from 'swiper/modules'
-import { fetchMovieCastById } from "../..//lib/api";
+import { fetchMovieCastById, fetchTvCastById } from "../../lib/api";
 
 interface CastSliderProps {
-  movieId: string;
+  Id: string;
+  Type: string;
 }
 
-export function CastSlider({ movieId }: CastSliderProps) {
+export function CastSlider({ Id, Type }: CastSliderProps) {
   const [cast, setCast] = useState<any[]>([]);
 
   useEffect(() => {
     const loadCast = async () => {
       try {
-        const data = await fetchMovieCastById(movieId);
+        let data;
+        if (Type === "movies") {
+          data = await fetchMovieCastById(Id);
+        } else if (Type === "series") {
+          data = await fetchTvCastById(Id);
+        }
         setCast(data);
       } catch (err) {
         console.error("Gagal load cast:", err);
@@ -23,7 +29,7 @@ export function CastSlider({ movieId }: CastSliderProps) {
     };
 
     loadCast();
-  }, [movieId]);
+  }, [Id, Type]);
 
   if (cast.length === 0) return null;
 
