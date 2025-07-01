@@ -6,5 +6,8 @@ export default [
     index("routes/movies.index.tsx"),
     route(":id", "routes/movies.$id.tsx"),
   ]),
-  route("tv", "routes/tv.tsx"),
+  route("tv", "routes/tv.tsx", [
+    index("routes/tv.index.tsx"),
+    route(":id", "routes/tv.$id.tsx"),
+  ]),
 ] satisfies RouteConfig;

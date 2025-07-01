@@ -99,6 +99,17 @@ export const fetchMovieById = async (id: string) => {
   }
 };
 
+// Fetch series by ID
+export const fetchTvById = async (id: string) => {
+  try {
+    const res = await api.get(`/tv/${id}?language=en-US`);
+    return res.data;
+  } catch (err) {
+    console.error('Failed to fetch series detail:', err);
+    throw err;
+  }
+};
+
 // Fetch movie cast by ID
 export const fetchMovieCastById = async (id: string) => {
   try {

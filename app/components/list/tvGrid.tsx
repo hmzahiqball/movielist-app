@@ -1,7 +1,7 @@
 import React,  { useState } from 'react'
-import { MovieCard } from './movieCard'
+import { TvCard } from './tvCard'
 
-export function MovieGrid({
+export function TvGrid({
   movies,
   loading,
 }: {
@@ -30,7 +30,7 @@ export function MovieGrid({
               </div>
             ))
           : movies.map((movie, i) => (
-              <MovieCard
+              <TvCard
                 key={i}
                 index={i}
                 id={movie.id}

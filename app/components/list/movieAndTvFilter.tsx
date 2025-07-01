@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function MovieFilter({
+export function MovieAndTvFilter({
   options,
   active,
   onChange,

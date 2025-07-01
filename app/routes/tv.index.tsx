@@ -1,5 +1,5 @@
-import type { Route } from "./+types/home";
-import { Outlet } from "react-router";
+import type { Route } from "./+types/tv.index";
+import { TV } from "../series/tv";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,6 +8,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function TVRoutes() {
-  return <Outlet />;
+export default function TvIndexRoute() {
+  return <TV />;
 }

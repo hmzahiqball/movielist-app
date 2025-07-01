@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MovieFilter } from '../components/list/movieFilter'
+import { MovieAndTvFilter } from '../components/list/movieAndTvFilter'
 import { MovieGrid } from '../components/list/movieGrid'
 import { useSearchParams } from 'react-router'
 import {
@@ -92,7 +92,7 @@ export function Movies() {
   return (
     <div className="min-h-screen bg-black text-white px-4 py-10">
       <h1 className="text-3xl font-bold text-center mb-8 mt-10">{activeFilter} Movies</h1>
-      <MovieFilter
+      <MovieAndTvFilter
         options={filterOptions}
         active={activeFilter}
         onChange={handleFilterChange}

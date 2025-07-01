@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { MovieFilter } from '../components/list/movieFilter'
-import { MovieGrid } from '../components/list/movieGrid'
+import { MovieAndTvFilter } from '../components/list/movieAndTvFilter'
+import { TvGrid } from '../components/list/tvGrid'
 import { useSearchParams } from 'react-router'
 import {
   fetchTvByCategory,
@@ -92,12 +92,12 @@ export function TV() {
   return (
     <div className="min-h-screen bg-black text-white px-4 py-10">
       <h1 className="text-3xl font-bold text-center mb-8 mt-10">{activeFilter} Series</h1>
-      <MovieFilter
+      <MovieAndTvFilter
         options={filterOptions}
         active={activeFilter}
         onChange={handleFilterChange}
       />
-      <MovieGrid
+      <TvGrid
         movies={series.map((m) => ({
           id: m.id,
           title: m.name,
