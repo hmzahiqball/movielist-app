@@ -38,14 +38,15 @@ export function ReviewUsers({ movieId }: ReviewUsersProps) {
         </h1>
       </div>
       {reviews.map((review) => (
-  <ReviewCard
-    key={review.id}
-    author={review.author}
-    rating={review.author_details.rating}
-    content={review.content}
-    created_at={review.created_at}
-  />
-))}
+        <ReviewCard
+          key={review.id}
+          author={review.author}
+          rating={review.author_details.rating}
+          content={review.content}
+          created_at={review.created_at}
+          url={review.url}
+        />
+      ))}
     </div>
   );
 }

@@ -40,6 +40,7 @@ export function TV() {
         const { movies, totalPages } = await fetchTvByCategory(category, currentPage)
         setSeries(movies)
         setTotalPages(totalPages)
+        document.title = `Series - Filmscape MovieApp`;
       } catch (err) {
         console.error('Gagal fetch movies:', err)
       } finally {

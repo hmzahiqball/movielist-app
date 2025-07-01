@@ -49,6 +49,7 @@ export function Home() {
         setOnTheAirSeries(onTheAirSeries);
         setTrendingSeries(trendingSeries);
         setTopRatedSeries(topRatedSeries);
+        document.title = `Home - FilmScape MovieApp`;
       } catch (err) {
         console.error("Gagal ambil home data:", err);
       }

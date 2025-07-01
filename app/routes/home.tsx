@@ -3,7 +3,7 @@ import { Home } from "../home/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Home FilmScape" },
+    { title: "Home - FilmScape MovieApp" },
     { name: "description", content: "Welcome to FilmScape!" },
   ];
 }
