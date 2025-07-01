@@ -176,6 +176,17 @@ export const fetchRecomendationMovieDetail = async (id: string, page: string) =>
   }
 }
 
+// Fetch series recomandation by ID
+export const fetchRecomendationTvDetail = async (id: string, page: string) => {
+  try {
+    const res = await api.get(`/tv/${id}/recommendations?language=en-US&page=${page}`);
+    return res.data.results;
+  } catch (err) {
+    console.error('Failed to fetch movie recommendations:', err);
+    throw err;
+  }
+}
+
 // Fetch movie recomandation by ID
 export const fetchSimilarMovieDetail = async (id: string, page: string) => {
   try {
