@@ -3,21 +3,27 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
-import { fetchMovieVideoById } from "../../lib/api";
+import { fetchMovieVideoById, fetchTvVideoById } from "../../lib/api";
 import LazyYoutube from "./lazyYoutube";
 
 interface VideoSliderProps {
-  movieId: string;
+  Id: string;
   movieName: string;
+  Type: string;
 }
 
-export function VideoSlider({ movieId, movieName }: VideoSliderProps) {
+export function VideoSlider({ Id, movieName, Type }: VideoSliderProps) {
   const [videos, setVideos] = useState<any[]>([]);
 
   useEffect(() => {
     const loadVideos = async () => {
       try {
-        const data = await fetchMovieVideoById(movieId);
+        let data;
+        if (Type === "movies") {
+          data = await fetchMovieVideoById(Id);
+        } else if (Type === "series") {
+          data = await fetchTvVideoById(Id);
+        }
 
         const uniqueVideos = Array.from(
           new Map(
@@ -34,7 +40,7 @@ export function VideoSlider({ movieId, movieName }: VideoSliderProps) {
     };
 
     loadVideos();
-  }, [movieId]);
+  }, [Id]);
 
   if (videos.length === 0) return null;
 
