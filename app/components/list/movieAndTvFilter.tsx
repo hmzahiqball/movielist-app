@@ -10,22 +10,27 @@ export function MovieAndTvFilter({
   onChange: (val: string) => void
 }) {
   return (
-    <div className="flex max-w-6xl mx-auto justify-center mb-0 flex-wrap">
-      {options.map((option) => (
-        <button
-          key={option}
-          onClick={() => onChange(option)}
-          className={`px-4 py-2 border-t-2 border-l-2 border-r-2 rounded-sm font-semibold w-[20%] transition-all duration-300 cursor-pointer
-            ${
-              active === option
-                ? 'bg-red-600 border-red-600 text-white'
-                : 'border-red-600 text-red-600 hover:bg-red-600 hover:text-white'
-            }`}
-        >
-          {option}
-        </button>
-      ))}
-      <div className="flex items-center px-4 py-2 border-t-2 border-l-2 border-r-2 rounded-sm font-semibold w-[20%] transition-all duration-300 border-red-600">
+    <div className="flex flex-wrap justify-center items-center gap-4 max-w-6xl mx-auto">
+      <div className="tabs tabs-lift tabs-xl [--tab-bg:orange]">
+        {options.map((option, index) => (
+          <input
+            key={option}
+            type="radio"
+            name="movie_filter_tabs"
+            className="tab"
+            aria-label={option}
+            checked={active === option}
+            onChange={() => onChange(option)}
+            style={{
+              // ganti warna background tab aktif
+              ...(active === option && { ['--tab-bg' as any]: 'rgb(220 38 38)' }), // tailwind red-600
+              ...(active === option && { color: 'white' }),
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="flex items-center border border-red-600 rounded-sm font-semibold w-[200px]">
         <input
           type="text"
           placeholder="Search"

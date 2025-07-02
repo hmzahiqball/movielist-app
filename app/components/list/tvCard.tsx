@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router';
 
 type TvCardProps = {
@@ -29,6 +29,8 @@ export function TvCard({
   isHovered,
   isLastColumn = false,
 }: TvCardProps) {
+  const [isImageError, setIsImageError] = useState(false)
+
   return (
     <div
       className="relative w-[200px] flex flex-col items-center gap-2"
@@ -36,12 +38,24 @@ export function TvCard({
       onMouseLeave={() => onHover(null)}
     >
       <Link to={`/tv/${encodeURIComponent(id)}`}>
-        <img
-          src={poster}
-          alt={title}
-          className="w-full h-auto object-cover rounded-md shadow-md"
-        />
-        <p className="text-sm text-center mt-2 font-semibold">{title}</p>
+        <div className="flex flex-col items-center gap-2 w-[200px]">
+          {isImageError ? (
+            <>
+              <div className="skeleton h-[300px] w-full rounded-md" />
+              <p className="text-sm text-center mt-2 font-semibold">{title}</p>
+            </>
+          ) : (
+            <>
+              <img
+                src={poster}
+                alt={title}
+                className="w-full h-[300px] object-cover rounded-md shadow-md"
+                onError={() => setIsImageError(true)}
+              />
+              <p className="text-sm text-center mt-2 font-semibold">{title}</p>
+            </>
+          )}
+        </div>
       </Link>
 
       {/* Expanded Card */}
