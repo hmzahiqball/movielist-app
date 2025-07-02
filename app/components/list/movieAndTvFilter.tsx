@@ -10,12 +10,12 @@ export function MovieAndTvFilter({
   onChange: (val: string) => void
 }) {
   return (
-    <div className="flex justify-center gap-3 mb-0 flex-wrap">
+    <div className="flex max-w-6xl mx-auto justify-center mb-0 flex-wrap">
       {options.map((option) => (
         <button
           key={option}
           onClick={() => onChange(option)}
-          className={`px-4 py-2 border-t-2 border-l-2 border-r-2 rounded-sm font-semibold w-[240px] transition-all duration-300 cursor-pointer
+          className={`px-4 py-2 border-t-2 border-l-2 border-r-2 rounded-sm font-semibold w-[20%] transition-all duration-300 cursor-pointer
             ${
               active === option
                 ? 'bg-red-600 border-red-600 text-white'
@@ -25,6 +25,15 @@ export function MovieAndTvFilter({
           {option}
         </button>
       ))}
+      <div className="flex items-center px-4 py-2 border-t-2 border-l-2 border-r-2 rounded-sm font-semibold w-[20%] transition-all duration-300 border-red-600">
+        <input
+          type="text"
+          placeholder="Search"
+          className="w-full px-4 py-2 outline-none bg-transparent placeholder:text-center"
+          onFocus={(e) => e.target.classList.add('bg-red-600', 'text-white')}
+          onBlur={(e) => e.target.classList.remove('bg-red-600', 'text-white')}
+        />
+      </div>
     </div>
   )
 }

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router';
+import React, { useState } from 'react'
+import { Link } from 'react-router'
 
 type MovieCardProps = {
   id: number
@@ -15,7 +15,6 @@ type MovieCardProps = {
   isLastColumn?: boolean
 }
 
-
 export function MovieCard({
   id,
   title,
@@ -29,6 +28,8 @@ export function MovieCard({
   isHovered,
   isLastColumn = false,
 }: MovieCardProps) {
+  const [isImageError, setIsImageError] = useState(false)
+
   return (
     <div
       className="relative w-[200px] flex flex-col items-center gap-2"
@@ -36,12 +37,24 @@ export function MovieCard({
       onMouseLeave={() => onHover(null)}
     >
       <Link to={`/movies/${encodeURIComponent(id)}`}>
-        <img
-          src={poster}
-          alt={title}
-          className="w-full h-auto object-cover rounded-md shadow-md"
-        />
-        <p className="text-sm text-center mt-2 font-semibold">{title}</p>
+        <div className="flex flex-col items-center gap-2 w-[200px]">
+          {isImageError ? (
+            <>
+              <div className="skeleton h-[300px] w-full rounded-md" />
+              <p className="text-sm text-center mt-2 font-semibold">{title}</p>
+            </>
+          ) : (
+            <>
+              <img
+                src={poster}
+                alt={title}
+                className="w-full h-[300px] object-cover rounded-md shadow-md"
+                onError={() => setIsImageError(true)}
+              />
+              <p className="text-sm text-center mt-2 font-semibold">{title}</p>
+            </>
+          )}
+        </div>
       </Link>
 
       {/* Expanded Card */}
@@ -62,16 +75,14 @@ export function MovieCard({
         <div className="bg-black/60 backdrop-blur-sm p-4 h-full rounded-md flex flex-col justify-start">
           <h3 className="text-lg font-bold mb-2">{title}</h3>
           <div className="overflow-y-scroll h-[200px]">
-            <p className="text-sm text-gray-300 leading-snug">
-              {desc}
-            </p>
+            <p className="text-sm text-gray-300 leading-snug">{desc}</p>
           </div>
           {firstAirDate && (
             <p className="text-xs text-gray-400 mt-2">
-              <strong>Release Date:</strong> {new Date(firstAirDate).toLocaleDateString()}
+              <strong>Release Date:</strong>{' '}
+              {new Date(firstAirDate).toLocaleDateString()}
             </p>
           )}
-
           {genres && genres.length > 0 && (
             <p className="text-xs text-gray-400 mt-1">
               <strong>Genres:</strong> {genres.join(', ')}

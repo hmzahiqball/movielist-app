@@ -68,25 +68,38 @@ export function Movies() {
   }
 
   const generatePageNumbers = () => {
-    const pages = []
-    const range = 1
-
-    const startPage = Math.max(2, currentPage - range)
-    const endPage = Math.min(totalPages - 1, currentPage + range)
-
-    pages.push(1)
-
-    if (startPage > 2) pages.push('...')
-
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i)
+    const pages: (number | string)[] = []
+    
+    if (totalPages <= 6) {
+      // kalau cuma sedikit, tampil semua
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i)
+      }
+    } else {
+      // selalu tampilkan 1 dan 2
+      pages.push(1)
+      pages.push(2)
+    
+      if (currentPage > 4) {
+        pages.push('...')
+      }
+    
+      // kalau currentPage belum mendekati akhir
+      if (currentPage > 2 && currentPage < totalPages - 2) {
+        pages.push(currentPage)
+      }
+    
+      if (currentPage < totalPages - 3) {
+        pages.push('...')
+      }
+    
+      // tampilkan 2 page terakhir
+      pages.push(totalPages - 1)
+      pages.push(totalPages)
     }
-
-    if (endPage < totalPages - 1) pages.push('...')
-
-    if (totalPages > 1) pages.push(totalPages)
-
-    return pages
+  
+    // hapus duplikat dan sort
+    return [...new Set(pages)]
   }
 
   return (
@@ -110,34 +123,45 @@ export function Movies() {
         loading={loading}
       />
 
-      <div className="flex justify-center flex-wrap items-center gap-2 mt-8">
+      <div className="flex justify-end items-center gap-4 mt-10 mr-15">
         <button
           onClick={() => handlePageChange('prev')}
           disabled={currentPage === 1}
-          className="px-3 py-1 border border-white rounded disabled:opacity-40 cursor-pointer hover:bg-white hover:text-black"
+          className="btn btn-md"
         >
           Prev
         </button>
-            
-        {generatePageNumbers().map((page, idx) => (
-          <button
-            key={idx}
-            onClick={() => typeof page === 'number' && setCurrentPage(page)}
-            disabled={page === '...'}
-            className={`px-3 py-1 border rounded ${
-              page === currentPage
-                ? 'bg-white text-black font-bold hover:bg-black'
-                : 'border-white text-white'
-            } ${page === '...' ? 'cursor-default' : 'cursor-pointer hover:bg-white hover:text-black'}`}
-          >
-            {page}
-          </button>
-        ))}
-      
+
+        <div className="join">
+          {generatePageNumbers().map((page, idx) => {
+            if (page === '...') {
+              return (
+                <button key={idx} className="join-item btn btn-md btn-disabled">
+                  ...
+                </button>
+              )
+            }
+          
+            return (
+              <input
+                key={idx}
+                className={`join-item btn btn-md btn-square ${
+                  page === currentPage ? 'bg-red-600 text-white border-none' : ''
+                }`}
+                type="radio"
+                name="page"
+                aria-label={page.toString()}
+                checked={page === currentPage}
+                onChange={() => setCurrentPage(page as number)}
+              />
+            )
+          })}
+        </div>
+        
         <button
           onClick={() => handlePageChange('next')}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border border-white rounded disabled:opacity-40 cursor-pointer hover:bg-white hover:text-black"
+          className="btn btn-md"
         >
           Next
         </button>
