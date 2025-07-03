@@ -8,6 +8,7 @@ import { RecommendationMovies } from '../components/detail/recomMovieSlider';
 import { SimilarMovies } from '../components/detail/similarMovieSlider';
 import { ReviewUsers } from '../components/detail/reviewUser';
 import { LazyShow } from '../components/detail/lazyShow';
+import { SeasonSlider } from '../components/detail/seasonSlider';
 import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 
@@ -19,6 +20,10 @@ export function TvDetail({ id }: TvDetailProps) {
   const [series, setSeries] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const overviewRef = useRef<HTMLParagraphElement>(null);
+  const getRatingCheckedIndex = (vote: number) => {
+    const rounded = Math.round((vote / 2) * 2) / 2; // misal 7.46 -> 3.5
+    return Math.round(rounded * 2); // 3.5 -> 7 (index radio ke-7)
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -103,7 +108,34 @@ export function TvDetail({ id }: TvDetailProps) {
             }}
             className="flex flex-col gap-4"
           >
-            <h1 className="text-4xl font-bold">{series.name}</h1>
+            <div className="relative inline-block">
+              <h1
+                className="text-4xl font-bold tooltip tooltip-right"
+                data-tip="Parental Discretion Advised, that's how you know it's good."
+              >
+                {series.name}
+              </h1>
+            </div>
+            
+            <div className="rating rating-sm rating-half">
+              {[...Array(10)].map((_, i) => {
+                const aria = (i + 1) * 0.5;
+                const isChecked = getRatingCheckedIndex(series.vote_average) === i + 1;
+              
+                return (
+                  <input
+                    key={i}
+                    type="radio"
+                    name="rating-11"
+                    className={`mask mask-star-2 ${i % 2 === 0 ? "mask-half-1" : "mask-half-2"} bg-yellow-400 disabled`}
+                    aria-label={`${aria} star`}
+                    defaultChecked={isChecked}
+                    readOnly
+                    disabled
+                  />
+                );
+              })}
+            </div>
             <p className="text-lg text-gray-300">
               {new Date(series.first_air_date).getFullYear()} •{" "}
               {series.spoken_languages.map((lang: any) => lang.name).join(", ")}
@@ -136,6 +168,22 @@ export function TvDetail({ id }: TvDetailProps) {
           </motion.div>
         </div>
       </div>
+
+      {/* 🎬 SEASON SECTION */}
+      <div className="bg-black w-full py-10">
+        <div className="max-w-6xl mx-auto px-6">
+          <LazyShow>
+            {series.seasons.length > 0 && (
+              <SeasonSlider
+                seasons={series.seasons}
+                fallbackPoster={series.poster_path}
+              />
+            )}
+          </LazyShow>
+        </div>
+      </div>
+
+      
 
       {/* 🎬 CAST SECTION */}
       <div className="bg-black w-full py-10">

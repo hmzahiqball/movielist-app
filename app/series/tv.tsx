@@ -106,38 +106,50 @@ export function TV() {
           backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
           genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
           firstAirDate: m.first_air_date,
+          rating: Math.round(m.vote_average * 10) / 10
         }))}
         loading={loading}
       />
 
-      <div className="flex justify-center flex-wrap items-center gap-2 mt-8">
+      <div className="flex justify-end items-center gap-4 mt-10">
         <button
           onClick={() => handlePageChange('prev')}
           disabled={currentPage === 1}
-          className="px-3 py-1 border border-white rounded disabled:opacity-40 cursor-pointer hover:bg-white hover:text-black"
+          className="btn btn-md"
         >
           Prev
         </button>
-            
-        {generatePageNumbers().map((page, idx) => (
-          <button
-            key={idx}
-            onClick={() => typeof page === 'number' && setCurrentPage(page)}
-            disabled={page === '...'}
-            className={`px-3 py-1 border rounded ${
-              page === currentPage
-                ? 'bg-white text-black font-bold hover:bg-black'
-                : 'border-white text-white'
-            } ${page === '...' ? 'cursor-default' : 'cursor-pointer hover:bg-white hover:text-black'}`}
-          >
-            {page}
-          </button>
-        ))}
-      
+
+        <div className="join">
+          {generatePageNumbers().map((page, idx) => {
+            if (page === '...') {
+              return (
+                <button key={idx} className="join-item btn btn-md btn-disabled">
+                  ...
+                </button>
+              )
+            }
+          
+            return (
+              <input
+                key={idx}
+                className={`join-item btn btn-md btn-square ${
+                  page === currentPage ? 'bg-red-600 text-white border-none' : ''
+                }`}
+                type="radio"
+                name="page"
+                aria-label={page.toString()}
+                checked={page === currentPage}
+                onChange={() => setCurrentPage(page as number)}
+              />
+            )
+          })}
+        </div>
+        
         <button
           onClick={() => handlePageChange('next')}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border border-white rounded disabled:opacity-40 cursor-pointer hover:bg-white hover:text-black"
+          className="btn btn-md"
         >
           Next
         </button>

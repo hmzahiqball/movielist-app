@@ -119,11 +119,12 @@ export function Movies() {
           backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
           genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
           firstAirDate: m.release_date,
+          rating: Math.round(m.vote_average * 10) / 10
         }))}
         loading={loading}
       />
 
-      <div className="flex justify-end items-center gap-4 mt-10 mr-15">
+      <div className="flex justify-end items-center gap-4 mt-10">
         <button
           onClick={() => handlePageChange('prev')}
           disabled={currentPage === 1}

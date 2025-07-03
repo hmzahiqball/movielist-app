@@ -45,7 +45,7 @@ export function VideoSlider({ Id, movieName, Type }: VideoSliderProps) {
   if (videos.length === 0) return null;
 
   return (
-    <div className="mt-2 px-4 md:px-0">
+    <div className="px-4 md:px-0">
       <div className="mb-4">
         <h1 className="text-3xl font-bold relative inline-block text-white">
           Videos about - {movieName}
