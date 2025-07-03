@@ -71,13 +71,15 @@ export function RecommendationMovies({ Id, Type }: RecommendationMoviesProps) {
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.id} style={{ width: 200 }}>
               <MovieCard
+                type={Type}
                 id={movie.id}
                 title={movie.title}
                 poster={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
                 desc={movie.overview}
                 backdrop={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
                 firstAirDate={movie.release_date}
-                genres={movie.genre_ids.map((id: number) => genres[id]).filter(Boolean)} // optional: lo bisa mapping genre ID ke nama genre kalo mau
+                genres={movie.genre_ids.map((id: number) => genres[id]).filter(Boolean)}
+                rating={Math.round(movie.vote_average * 10) / 10}
                 index={index}
                 onHover={setHoveredIndex}
                 isHovered={hoveredIndex === index}
@@ -105,13 +107,15 @@ export function RecommendationMovies({ Id, Type }: RecommendationMoviesProps) {
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.id} style={{ width: 200 }}>
               <MovieCard
+                type={Type}
                 id={movie.id}
                 title={movie.name}
                 poster={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
                 desc={movie.overview}
                 backdrop={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
                 firstAirDate={movie.first_air_date}
-                genres={movie.genre_ids.map((id: number) => genres[id]).filter(Boolean)} // optional: lo bisa mapping genre ID ke nama genre kalo mau
+                genres={movie.genre_ids.map((id: number) => genres[id]).filter(Boolean)}
+                rating={Math.round(movie.vote_average * 10) / 10}
                 index={index}
                 onHover={setHoveredIndex}
                 isHovered={hoveredIndex === index}

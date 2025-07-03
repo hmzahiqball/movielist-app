@@ -132,6 +132,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
             firstAirDate: m.release_date,
+            rating: Math.round(m.vote_average * 10) / 10
           }))}
         />
         <MovieSection
@@ -145,6 +146,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
             firstAirDate: m.release_date,
+            rating: Math.round(m.vote_average * 10) / 10
           }))}
         />
         <MovieSection
@@ -158,6 +160,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
             firstAirDate: m.release_date,
+            rating: Math.round(m.vote_average * 10) / 10
           }))}
         />
         <SeriesSection
@@ -171,6 +174,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
+            rating: Math.round(m.vote_average * 10) / 10
           }))}
         />
         <SeriesSection
@@ -184,6 +188,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
+            rating: Math.round(m.vote_average * 10) / 10
           }))}
         />
         <SeriesSection
@@ -197,6 +202,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
+            rating: Math.round(m.vote_average * 10) / 10
           }))}
         />
         <SeriesSection
@@ -210,6 +216,7 @@ export function Home() {
             backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
+            rating: Math.round(m.vote_average * 10) / 10
           }))}
         />
       </div>

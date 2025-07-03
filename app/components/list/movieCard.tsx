@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router'
 
 type MovieCardProps = {
+  type: string,
   id: number
   title: string
   poster: string
@@ -9,6 +10,7 @@ type MovieCardProps = {
   backdrop?: string
   genres?: string[]
   firstAirDate?: string
+  rating?: number
   index: number
   onHover: (index: number | null) => void
   isHovered: boolean
@@ -16,6 +18,7 @@ type MovieCardProps = {
 }
 
 export function MovieCard({
+  type,
   id,
   title,
   poster,
@@ -24,6 +27,7 @@ export function MovieCard({
   index,
   firstAirDate,
   genres,
+  rating,
   onHover,
   isHovered,
   isLastColumn = false,
@@ -36,7 +40,7 @@ export function MovieCard({
       onMouseEnter={() => onHover(index)}
       onMouseLeave={() => onHover(null)}
     >
-      <Link to={`/movies/${encodeURIComponent(id)}`}>
+      <Link to={`/${type === 'series' ? 'tv' : 'movies'}/${encodeURIComponent(id)}`}>
         <div className="flex flex-col items-center gap-2 w-[200px]">
           {isImageError ? (
             <>
@@ -77,9 +81,13 @@ export function MovieCard({
           <div className="overflow-y-scroll h-[200px]">
             <p className="text-sm text-gray-300 leading-snug">{desc}</p>
           </div>
+          <p className="text-xs text-gray-400 mt-2">
+              <strong>Rate:</strong>{' '}
+              {rating}/10
+            </p>
           {firstAirDate && (
-            <p className="text-xs text-gray-400 mt-2">
-              <strong>Release Date:</strong>{' '}
+            <p className="text-xs text-gray-400 mt-1">
+              <strong>{type === 'series' ? 'First Air Date:' : 'Release Date:'}</strong>{' '}
               {new Date(firstAirDate).toLocaleDateString()}
             </p>
           )}
