@@ -19,6 +19,11 @@ export function MovieDetail({ id }: MovieDetailProps) {
   const [movie, setMovie] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const overviewRef = useRef<HTMLParagraphElement>(null);
+  const getRatingCheckedIndex = (vote: number) => {
+    const rounded = Math.round((vote / 2) * 2) / 2; // misal 7.46 -> 3.5
+    return Math.round(rounded * 2); // 3.5 -> 7 (index radio ke-7)
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,6 +109,27 @@ export function MovieDetail({ id }: MovieDetailProps) {
             className="flex flex-col gap-4"
           >
             <h1 className="text-4xl font-bold">{movie.title}</h1>
+            
+            <div className="rating rating-sm rating-half">
+              {[...Array(10)].map((_, i) => {
+                const aria = (i + 1) * 0.5;
+                const isChecked = getRatingCheckedIndex(movie.vote_average) === i + 1;
+              
+                return (
+                  <input
+                    key={i}
+                    type="radio"
+                    name="rating-11"
+                    className={`mask mask-star-2 ${i % 2 === 0 ? "mask-half-1" : "mask-half-2"} bg-yellow-400 disabled`}
+                    aria-label={`${aria} star`}
+                    defaultChecked={isChecked}
+                    readOnly
+                    disabled
+                  />
+                );
+              })}
+            </div>
+
             <p className="text-lg text-gray-300">
               {new Date(movie.release_date).getFullYear()} •{" "}
               {movie.spoken_languages.map((lang: any) => lang.name).join(", ")}
@@ -125,7 +151,6 @@ export function MovieDetail({ id }: MovieDetailProps) {
                 </motion.span>
               ))}
             </div>
-
             <motion.p
               ref={overviewRef}
               className="max-w-2xl text-base text-gray-200 leading-relaxed split-text"
