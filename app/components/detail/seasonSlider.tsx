@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import { SeasonCard } from './seasonCard';
+import React from 'react';
 
 type Season = {
   id: number;
@@ -9,6 +6,9 @@ type Season = {
   air_date?: string;
   poster_path?: string | null;
   overview?: string;
+  vote_average: number;
+  season_number: number;
+  episode_count: number;
 };
 
 type SeasonSliderProps = {
@@ -17,32 +17,68 @@ type SeasonSliderProps = {
 };
 
 export function SeasonSlider({ seasons, fallbackPoster }: SeasonSliderProps) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   if (seasons.length === 0) return null;
 
   return (
-    <div className="mt-10">
-      <h2 className="text-3xl font-bold relative inline-block text-white mb-4">
-        Seasons
-        <span className="absolute bottom-0 left-0 w-3/4 h-[3px] bg-red-500 rounded-full" />
-      </h2>
-      <Swiper spaceBetween={16} slidesPerView="auto" grabCursor={true}>
-        {seasons.map((season, index) => (
-          <SwiperSlide key={season.id} style={{ width: 200 }}>
-            <SeasonCard
-              name={season.name}
-              airDate={season.air_date}
-              poster={season.poster_path}
-              fallbackPoster={fallbackPoster}
-              overview={season.overview}
-              isHovered={hoveredIndex === index}
-              index={index}
-              onHover={setHoveredIndex}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div className="join join-vertical w-full">
+      {seasons.map((season) => {
+        const backdrop_path = `https://image.tmdb.org/t/p/original${fallbackPoster}`;
+
+        return (
+          <div
+            key={season.id}
+            className="collapse collapse-arrow bg-base-100 border border-base-300"
+          >
+            <input type="radio" name="my-accordion-1" />
+            <div className="collapse-title font-semibold">
+              {season.name || `Season ${season.season_number}`}
+            </div>
+
+            <div
+              className="collapse-content text-white p-0"
+              style={{
+                backgroundImage: `url(${backdrop_path})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              <div className="w-full h-full bg-black/60 backdrop-blur-sm rounded-lg p-4">
+                <div className="flex flex-col md:flex-row gap-4">
+                  {season.poster_path && (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w185${season.poster_path}`}
+                      alt={season.name}
+                      className="w-32 rounded-lg shadow-md mt-10 mb-10"
+                    />
+                  )}
+
+                  {/* Detail kanan */}
+                  <div className="flex flex-col gap-2 mt-10 mb-10">
+                    <p className="text-sm opacity-80">
+                      Total Episode: {season.episode_count}
+                    </p>
+                    <p className="text-sm opacity-80">
+                      {season.air_date
+                        ? `Aired: ${new Date(season.air_date).toLocaleDateString()}`
+                        : 'No air date'}
+                    </p>
+                    <p className="text-sm opacity-80">
+                      Rating: {Math.round(season.vote_average * 10) / 10}
+                    </p>
+                    {season.overview ? (
+                      <p className="text-base mt-2">{season.overview}</p>
+                    ) : (
+                      <p className="text-base mt-2 text-gray-400">
+                        No Overview Available
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -176,14 +176,12 @@ export function TvDetail({ id }: TvDetailProps) {
             {series.seasons.length > 0 && (
               <SeasonSlider
                 seasons={series.seasons}
-                fallbackPoster={series.poster_path}
+                fallbackPoster={series.backdrop_path}
               />
             )}
           </LazyShow>
         </div>
       </div>
-
-      
 
       {/* 🎬 CAST SECTION */}
       <div className="bg-black w-full py-10">
