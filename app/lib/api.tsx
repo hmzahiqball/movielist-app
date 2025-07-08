@@ -51,19 +51,21 @@ export const searchMovies = async ({
   page = 1,
   region,
   year,
+  language = 'en-US',
 }: {
   query: string
   include_adult?: boolean
   page?: number
   region?: string
   year?: string
+  language?: string
 }) => {
   try {
     const params: Record<string, string | number | boolean> = {
       query,
       include_adult,
       page,
-      language: 'en-US',
+      language, // masukin langsung dari argumen
     }
 
     if (region) params.region = region
@@ -80,6 +82,7 @@ export const searchMovies = async ({
     throw err
   }
 }
+
 
 // Movie Categories
 export const fetchMoviesByCategory = async (
@@ -267,3 +270,26 @@ export const fetchMovieKeywordById = async (id: string) => {
     throw err;
   }
 }
+
+// Fetch configuration for countries
+export const fetchCountriesConfiguration = async () => {
+  try {
+    const res = await api.get('/configuration/countries?language=en-US');
+    return res.data;
+  } catch (err) {
+    console.error('Failed to fetch countries configuration:', err);
+    throw err;
+  }
+};
+
+// Fetch configuration for languages
+export const fetchLanguagesConfiguration = async () => {
+  try {
+    const res = await api.get('/configuration/languages');
+    return res.data;
+  } catch (err) {
+    console.error('Failed to fetch languages configuration:', err);
+    throw err;
+  }
+};
+

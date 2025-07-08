@@ -113,16 +113,16 @@ export function Movies() {
         onChange={handleFilterChange}
       />
       {activeFilter === 'Search' ? (
-  <SearchGrid
-    currentPage={currentPage}
-    onPageChange={(dir) => {
-      if (dir === 'prev' && currentPage > 1) setCurrentPage((p) => p - 1)
-      else if (dir === 'next' && currentPage < totalPages) setCurrentPage((p) => p + 1)
-      else if (typeof dir === 'number') setCurrentPage(dir)
-    }}
-    setTotalPages={setTotalPages}
-  />
-) : (
+        <SearchGrid
+          currentPage={currentPage}
+          onPageChange={(dir) => {
+            if (dir === 'prev' && currentPage > 1) setCurrentPage((p) => p - 1)
+            else if (dir === 'next' && currentPage < totalPages) setCurrentPage((p) => p + 1)
+            else if (typeof dir === 'number') setCurrentPage(dir)
+          }}
+          setTotalPages={setTotalPages}
+        />
+      ) : (
         <MovieGrid
           movies={movies.map((m) => ({
             id: m.id,

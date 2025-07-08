@@ -14,3 +14,22 @@ body {
     color-scheme: dark;
   }
 }
+
+.react-select__control {
+  @apply bg-gray-800 border-gray-700 text-white rounded-md;
+}
+.react-select__menu {
+  @apply bg-gray-800 text-white z-50;
+}
+.react-select__option {
+  @apply cursor-pointer;
+}
+.react-select__option--is-focused {
+  @apply bg-red-700;
+}
+.react-select__placeholder {
+  @apply text-gray-400;
+}
+.react-select__single-value {
+  @apply text-white;
+}
