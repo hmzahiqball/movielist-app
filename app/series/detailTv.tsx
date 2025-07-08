@@ -8,7 +8,7 @@ import { RecommendationMovies } from '../components/detail/recomMovieSlider';
 import { SimilarMovies } from '../components/detail/similarMovieSlider';
 import { ReviewUsers } from '../components/detail/reviewUser';
 import { LazyShow } from '../components/detail/lazyShow';
-import { SeasonSlider } from '../components/detail/seasonSlider';
+import { SeasonAccordion } from '../components/detail/seasonAccordion';
 import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 
@@ -21,8 +21,8 @@ export function TvDetail({ id }: TvDetailProps) {
   const [loading, setLoading] = useState(true);
   const overviewRef = useRef<HTMLParagraphElement>(null);
   const getRatingCheckedIndex = (vote: number) => {
-    const rounded = Math.round((vote / 2) * 2) / 2; // misal 7.46 -> 3.5
-    return Math.round(rounded * 2); // 3.5 -> 7 (index radio ke-7)
+    const rounded = Math.round((vote / 2) * 2) / 2;
+    return Math.round(rounded * 2);
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export function TvDetail({ id }: TvDetailProps) {
       try {
         const data = await fetchTvById(id);
         setSeries(data);
-        document.title = `${data.name} - Filmscape`; // ✅ pakai .name
+        document.title = `${data.name} - Filmscape`;
       } catch (error) {
         console.error("Error loading series:", error);
       } finally {
@@ -174,7 +174,7 @@ export function TvDetail({ id }: TvDetailProps) {
         <div className="max-w-6xl mx-auto px-6">
           <LazyShow>
             {series.seasons.length > 0 && (
-              <SeasonSlider
+              <SeasonAccordion
                 seasons={series.seasons}
                 fallbackPoster={series.backdrop_path}
               />

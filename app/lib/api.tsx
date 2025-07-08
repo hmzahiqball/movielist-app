@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AUTH_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZTc4MmE2YzdhMzIwZDJhMDRmODIxOGU3NTMwNTkxMiIsIm5iZiI6MTc1MDA2MjcyNi44OTEsInN1YiI6IjY4NGZkNjg2ZjllNzJiNGY0OWIwZTk5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g5e7DJgUiRiL9rgV7Vng6jrt7T6aUrEERKouc_FvtJI';
+const AUTH_TOKEN = `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`;
 
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -43,6 +43,43 @@ export const fetchHomeData = async () => {
     topRatedSeries: topRatedTv.data.results,
   };
 };
+
+// Search Movies
+export const searchMovies = async ({
+  query,
+  include_adult = false,
+  page = 1,
+  region,
+  year,
+}: {
+  query: string
+  include_adult?: boolean
+  page?: number
+  region?: string
+  year?: string
+}) => {
+  try {
+    const params: Record<string, string | number | boolean> = {
+      query,
+      include_adult,
+      page,
+      language: 'en-US',
+    }
+
+    if (region) params.region = region
+    if (year) params.year = year
+
+    const res = await api.get('/search/movie', { params })
+
+    return {
+      movies: res.data.results,
+      totalPages: res.data.total_pages,
+    }
+  } catch (err) {
+    console.error('Failed to search movies:', err)
+    throw err
+  }
+}
 
 // Movie Categories
 export const fetchMoviesByCategory = async (

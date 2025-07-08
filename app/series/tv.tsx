@@ -111,7 +111,7 @@ export function TV() {
         loading={loading}
       />
 
-      <div className="flex justify-end items-center gap-4 mt-10">
+      <div className="flex justify-center items-center gap-4 mt-10">
         <button
           onClick={() => handlePageChange('prev')}
           disabled={currentPage === 1}

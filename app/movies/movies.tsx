@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MovieAndTvFilter } from '../components/list/movieAndTvFilter'
 import { MovieGrid } from '../components/list/movieGrid'
+import { SearchGrid } from '../components/list/searchGrid'
 import { useSearchParams } from 'react-router'
 import {
   fetchMoviesByCategory,
@@ -12,6 +13,7 @@ const filterMap: Record<string, string> = {
   Trending: 'popular',
   'Top Rated': 'top_rated',
   Upcoming: 'upcoming',
+  Search: 'search',
 }
 
 const reverseFilterMap = Object.fromEntries(
@@ -110,21 +112,33 @@ export function Movies() {
         active={activeFilter}
         onChange={handleFilterChange}
       />
-      <MovieGrid
-        movies={movies.map((m) => ({
-          id: m.id,
-          title: m.title,
-          poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
-          desc: m.overview,
-          backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
-          genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
-          firstAirDate: m.release_date,
-          rating: Math.round(m.vote_average * 10) / 10
-        }))}
-        loading={loading}
-      />
+      {activeFilter === 'Search' ? (
+  <SearchGrid
+    currentPage={currentPage}
+    onPageChange={(dir) => {
+      if (dir === 'prev' && currentPage > 1) setCurrentPage((p) => p - 1)
+      else if (dir === 'next' && currentPage < totalPages) setCurrentPage((p) => p + 1)
+      else if (typeof dir === 'number') setCurrentPage(dir)
+    }}
+    setTotalPages={setTotalPages}
+  />
+) : (
+        <MovieGrid
+          movies={movies.map((m) => ({
+            id: m.id,
+            title: m.title,
+            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            desc: m.overview,
+            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
+            firstAirDate: m.release_date,
+            rating: Math.round(m.vote_average * 10) / 10
+          }))}
+          loading={loading}
+        />
+      )}
 
-      <div className="flex justify-end items-center gap-4 mt-10">
+      <div className="flex justify-center items-center gap-4 mt-10">
         <button
           onClick={() => handlePageChange('prev')}
           disabled={currentPage === 1}

@@ -11,12 +11,12 @@ type Season = {
   episode_count: number;
 };
 
-type SeasonSliderProps = {
+type SeasonAccordionProps = {
   seasons: Season[];
   fallbackPoster: string;
 };
 
-export function SeasonSlider({ seasons, fallbackPoster }: SeasonSliderProps) {
+export function SeasonAccordion({ seasons, fallbackPoster }: SeasonAccordionProps) {
   if (seasons.length === 0) return null;
 
   return (
@@ -27,7 +27,7 @@ export function SeasonSlider({ seasons, fallbackPoster }: SeasonSliderProps) {
         return (
           <div
             key={season.id}
-            className="collapse collapse-arrow bg-base-100 border border-base-300"
+            className="collapse collapse-arrow bg-zinc-900 border border-zinc-900 rounded-none"
           >
             <input type="radio" name="my-accordion-1" />
             <div className="collapse-title font-semibold">
@@ -35,14 +35,14 @@ export function SeasonSlider({ seasons, fallbackPoster }: SeasonSliderProps) {
             </div>
 
             <div
-              className="collapse-content text-white p-0"
+              className="collapse-content text-white p-4"
               style={{
                 backgroundImage: `url(${backdrop_path})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
             >
-              <div className="w-full h-full bg-black/60 backdrop-blur-sm rounded-lg p-4">
+              <div className="w-full min-h-full bg-black/60 backdrop-blur-sm rounded-lg p-4">
                 <div className="flex flex-col md:flex-row gap-4">
                   {season.poster_path && (
                     <img
