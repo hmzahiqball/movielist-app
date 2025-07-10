@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MovieAndTvFilter } from '../components/list/movieAndTvFilter'
 import { TvGrid } from '../components/list/tvGrid'
+import { SearchGrid } from '../components/list/searchGridTv'
 import { useSearchParams } from 'react-router'
 import {
   fetchTvByCategory,
@@ -12,6 +13,7 @@ const filterMap: Record<string, string> = {
   'On The Air': 'on_the_air',
   Trending: 'popular',
   'Top Rated': 'top_rated',
+  Search: 'search',
 }
 
 const reverseFilterMap = Object.fromEntries(
@@ -97,19 +99,31 @@ export function TV() {
         active={activeFilter}
         onChange={handleFilterChange}
       />
-      <TvGrid
-        movies={series.map((m) => ({
-          id: m.id,
-          title: m.name,
-          poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
-          desc: m.overview,
-          backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
-          genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
-          firstAirDate: m.first_air_date,
-          rating: Math.round(m.vote_average * 10) / 10
-        }))}
-        loading={loading}
-      />
+      {activeFilter === 'Search' ? (
+        <SearchGrid
+          currentPage={currentPage}
+          onPageChange={(dir) => {
+            if (dir === 'prev' && currentPage > 1) setCurrentPage((p) => p - 1)
+            else if (dir === 'next' && currentPage < totalPages) setCurrentPage((p) => p + 1)
+            else if (typeof dir === 'number') setCurrentPage(dir)
+          }}
+          setTotalPages={setTotalPages}
+        />
+      ) : (
+        <TvGrid
+          movies={series.map((m) => ({
+            id: m.id,
+            title: m.name,
+            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            desc: m.overview,
+            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
+            firstAirDate: m.first_air_date,
+            rating: Math.round(m.vote_average * 10) / 10
+          }))}
+          loading={loading}
+        />
+      )}
 
       <div className="flex justify-center items-center gap-4 mt-10">
         <button

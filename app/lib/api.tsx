@@ -83,6 +83,41 @@ export const searchMovies = async ({
   }
 }
 
+// Search Movies
+export const searchTv = async ({
+  query,
+  include_adult = false,
+  page = 1,
+  year,
+  language = 'en-US',
+}: {
+  query: string
+  include_adult?: boolean
+  page?: number
+  year?: string
+  language?: string
+}) => {
+  try {
+    const params: Record<string, string | number | boolean> = {
+      query,
+      include_adult,
+      page,
+      language,
+    }
+
+    if (year) params.year = year
+
+    const res = await api.get('/search/tv', { params })
+
+    return {
+      movies: res.data.results,
+      totalPages: res.data.total_pages,
+    }
+  } catch (err) {
+    console.error('Failed to search movies:', err)
+    throw err
+  }
+}
 
 // Movie Categories
 export const fetchMoviesByCategory = async (
