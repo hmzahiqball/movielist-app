@@ -26,20 +26,23 @@ export function MovieDetail({ id }: MovieDetailProps) {
 
 
   useEffect(() => {
+    setMovie(null)
+    setLoading(true)
+
     const fetchData = async () => {
       try {
-        const data = await fetchMovieById(id);
-        setMovie(data);
-        document.title = `${data.title} - Filmscape`;
+        const data = await fetchMovieById(id)
+        setMovie(data)
+        document.title = `${data.title} - Filmscape`
       } catch (error) {
-        console.error("Error loading movie:", error);
+        console.error("Error loading movie:", error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchData();
-  }, [id]);
+    fetchData()
+  }, [id])
 
   useEffect(() => {
     document.fonts.ready.then(() => {
@@ -79,7 +82,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/w185${movie.backdrop_path})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
           }}
         />
         {/* Gradient overlay */}
@@ -94,7 +97,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
               duration: 1.5,
               scale: { type: "spring", visualDuration: 0.4, bounce: 0.2 },
             }}
-            src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
             alt={movie.title}
             className="w-60 md:w-72 rounded-lg shadow-lg"
           />

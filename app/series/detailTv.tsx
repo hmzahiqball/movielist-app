@@ -26,6 +26,9 @@ export function TvDetail({ id }: TvDetailProps) {
   };
 
   useEffect(() => {
+    setSeries(null)
+    setLoading(true)
+
     const fetchData = async () => {
       try {
         const data = await fetchTvById(id);
@@ -94,7 +97,7 @@ export function TvDetail({ id }: TvDetailProps) {
               duration: 1.5,
               scale: { type: "spring", visualDuration: 0.4, bounce: 0.2 },
             }}
-            src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w300${series.poster_path}`}
             alt={series.name}
             className="w-60 md:w-72 rounded-lg shadow-lg"
           />
