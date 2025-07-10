@@ -10,4 +10,5 @@ export default [
     index("routes/tv.index.tsx"),
     route(":id", "routes/tv.$id.tsx"),
   ]),
+  route("about", "routes/about.tsx"),
 ] satisfies RouteConfig;
