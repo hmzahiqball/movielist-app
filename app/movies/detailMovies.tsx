@@ -79,7 +79,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/w185${movie.backdrop_path})`,
           }}
         />
         {/* Gradient overlay */}
@@ -94,7 +94,7 @@ export function MovieDetail({ id }: MovieDetailProps) {
               duration: 1.5,
               scale: { type: "spring", visualDuration: 0.4, bounce: 0.2 },
             }}
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
             alt={movie.title}
             className="w-60 md:w-72 rounded-lg shadow-lg"
           />

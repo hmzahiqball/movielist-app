@@ -127,9 +127,9 @@ export function Movies() {
           movies={movies.map((m) => ({
             id: m.id,
             title: m.title,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
             firstAirDate: m.release_date,
             rating: Math.round(m.vote_average * 10) / 10

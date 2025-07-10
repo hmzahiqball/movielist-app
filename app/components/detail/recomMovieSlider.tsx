@@ -74,9 +74,9 @@ export function RecommendationMovies({ Id, Type }: RecommendationMoviesProps) {
                 type={Type}
                 id={movie.id}
                 title={movie.title}
-                poster={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                poster={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
                 desc={movie.overview}
-                backdrop={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
+                backdrop={`https://image.tmdb.org/t/p/w342${movie.backdrop_path}`}
                 firstAirDate={movie.release_date}
                 genres={movie.genre_ids.map((id: number) => genres[id]).filter(Boolean)}
                 rating={Math.round(movie.vote_average * 10) / 10}
@@ -110,9 +110,9 @@ export function RecommendationMovies({ Id, Type }: RecommendationMoviesProps) {
                 type={Type}
                 id={movie.id}
                 title={movie.name}
-                poster={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                poster={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
                 desc={movie.overview}
-                backdrop={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
+                backdrop={`https://image.tmdb.org/t/p/w342${movie.backdrop_path}`}
                 firstAirDate={movie.first_air_date}
                 genres={movie.genre_ids.map((id: number) => genres[id]).filter(Boolean)}
                 rating={Math.round(movie.vote_average * 10) / 10}

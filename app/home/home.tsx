@@ -84,14 +84,14 @@ export function Home() {
                 <div
                   className="absolute inset-0 bg-cover bg-center brightness-[0.4]"
                   style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+                    backgroundImage: `url(https://image.tmdb.org/t/p/w342${movie.backdrop_path})`,
                     zIndex: -1,
                   }}
                 ></div>
                 <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-10 z-10">
                   <div className="w-60 md:w-72 lg:w-80 flex-shrink-0">
                     <img
-                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
                       alt={movie.title}
                       className="w-75 h-auto rounded-xl shadow-lg"
                     />
@@ -127,9 +127,9 @@ export function Home() {
           items={trendingMovies.map((m) => ({
             id: m.id,
             title: m.title,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
             firstAirDate: m.release_date,
             rating: Math.round(m.vote_average * 10) / 10
@@ -141,9 +141,9 @@ export function Home() {
           items={topRatedMovies.map((m) => ({
             id: m.id,
             title: m.title,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
             firstAirDate: m.release_date,
             rating: Math.round(m.vote_average * 10) / 10
@@ -155,9 +155,9 @@ export function Home() {
           items={upcomingMovies.map((m) => ({
             id: m.id,
             title: m.title,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => genres[id]).filter(Boolean),
             firstAirDate: m.release_date,
             rating: Math.round(m.vote_average * 10) / 10
@@ -169,9 +169,9 @@ export function Home() {
           items={airingTodaySeries.map((m) => ({
             id: m.id,
             title: m.name,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
             rating: Math.round(m.vote_average * 10) / 10
@@ -183,9 +183,9 @@ export function Home() {
           items={onTheAirSeries.map((m) => ({
             id: m.id,
             title: m.name,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
             rating: Math.round(m.vote_average * 10) / 10
@@ -197,9 +197,9 @@ export function Home() {
           items={trendingSeries.map((m) => ({
             id: m.id,
             title: m.name,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
             rating: Math.round(m.vote_average * 10) / 10
@@ -211,9 +211,9 @@ export function Home() {
           items={topRatedSeries.map((m) => ({
             id: m.id,
             title: m.name,
-            poster: `https://image.tmdb.org/t/p/original${m.poster_path}`,
+            poster: `https://image.tmdb.org/t/p/w185${m.poster_path}`,
             desc: m.overview,
-            backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+            backdrop: `https://image.tmdb.org/t/p/w342${m.backdrop_path}`,
             genres: m.genre_ids.map((id: number) => tvgenres[id]).filter(Boolean),
             firstAirDate: m.first_air_date,
             rating: Math.round(m.vote_average * 10) / 10
