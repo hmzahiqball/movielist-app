@@ -1,87 +1,122 @@
-# Welcome to React Router!
+# 🎬 FilmScape - Modern Movie & TV Explorer
 
-A modern, production-ready template for building full-stack React applications using React Router.
+<p align="center">
+  <img src="public/screenshot1.png" alt="Screenshot 1"/>
+  <img src="public/screenshot2.png" alt="Screenshot 2"/>
+  <img src="public/screenshot3.png" alt="Screenshot 3"/>
+</p>
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+**FilmScape** is a modern, full-stack web application built with React, TypeScript, and TMDB API. Designed as a personal portfolio project, it provides users with an immersive platform to explore movies and TV shows with detailed information, filters, and dynamic content presentation.
 
-## Features
+## 🌟 Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- 🔎 Explore movies and series by category:  
+  - **Movies**: Now Playing, Top Rated, Trending, Upcoming  
+  - **TV Shows**: Airing Today, On The Air, Top Rated, Trending  
+- 🧠 Smart search and filter functionality  
+- 🎞️ Movie & TV details with:
+  - Overview & rating  
+  - Cast list  
+  - YouTube trailers  
+  - Seasons (for series)  
+  - Similar and recommended content  
+  - Reviews from other users  
+- 📱 Responsive design with smooth animations  
+- ⚙️ Future roadmap includes:
+  - User authentication  
+  - Posting user reviews and ratings  
+  - Saving favorites & watch history  
+  - User profiles
 
-## Getting Started
+---
+
+## 🚀 Tech Stack
+
+- ⚛️ React + TypeScript  
+- 🎨 Tailwind CSS + DaisyUI  
+- 🧩 Headless UI  
+- 📡 TMDB API  
+- ⚡ Vite  
+- 🔄 React Router
+
+---
+
+## 🛠 Getting Started
 
 ### Installation
 
-Install the dependencies:
+Install project dependencies:
 
-```bash
+```
 npm install
 ```
 
 ### Development
 
-Start the development server with HMR:
+Run the development server with HMR:
 
-```bash
+```
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+Your app will be available at `http://localhost:5173`.
 
 ---
 
-Built with ❤️ using React Router.
+## 📦 Building for Production
+
+Generate the production build:
+
+```
+npm run build
+```
+
+Output will be created in the `/build` directory:
+```
+├── client/ # Static assets
+└── server/ # Server-side code
+```
+
+---
+
+## 🚀 Deployment
+
+### Vercel / Netlify
+
+This app is ready for deployment on [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/). Simply connect your GitHub repo and enable auto-deploys from `main` or your chosen branch.
+
+### Docker Deployment
+
+To deploy using Docker:
+
+```
+docker build -t filmscape .
+```
+
+``` 
+docker run -p 3000:3000 filmscape
+```
+
+Compatible with platforms like:
+
+- AWS ECS  
+- Google Cloud Run  
+- Fly.io  
+- Railway  
+- DigitalOcean App Platform
+
+---
+
+## 🎨 Styling
+
+Tailwind CSS is fully integrated with custom DaisyUI components and dark-mode support. Feel free to customize or extend the styles to match your needs.
+
+---
+
+## 💡 Motivation
+
+This project was created to demonstrate modern front-end architecture and interaction with real-world APIs. It serves as a showcase for full-stack development skills, including animation, API integration, and UI/UX best practices.
+
+---
+
+> Built with ❤️ by an indie dev who loves both cinema and code.
