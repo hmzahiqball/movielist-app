@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MovieCard } from './movieCard'
 import { SelectInput } from './searchSelect'
+import { YearSelectInput } from './searchYear'
 import { LazyShow } from '../detail/lazyShow'
 import { Filter } from 'lucide-react'
 import {
@@ -129,13 +130,7 @@ export function SearchGrid({
                 <span className="text-sm">Include adult</span>
               </label>
 
-              <input
-                type="number"
-                className="input input-bordered w-full"
-                placeholder="Year"
-                value={yearFilter}
-                onChange={(e) => setYearFilter(e.target.value)}
-              />
+              <YearSelectInput value={yearFilter} onChange={setYearFilter} />
 
               <div className="flex flex-col gap-2">
                 <SelectInput
