@@ -84,14 +84,14 @@ export function Home() {
                 <div
                   className="absolute inset-0 bg-cover bg-center brightness-[0.4]"
                   style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/w342${movie.backdrop_path})`,
+                    backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
                     zIndex: -1,
                   }}
                 ></div>
                 <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-10 z-10">
                   <div className="w-60 md:w-72 lg:w-80 flex-shrink-0">
                     <img
-                      src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                       alt={movie.title}
                       className="w-75 h-auto rounded-xl shadow-lg"
                     />
