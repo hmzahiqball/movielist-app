@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from 'react-router'
+import { Link } from 'react-router' // fix: pakai react-router-dom
 
 export function Footer() {
   return (
@@ -17,21 +17,46 @@ export function Footer() {
           />
         </div>
 
-        <div style={{ width: '50vw', margin: '0 auto', padding: '0 2rem' }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-2 gap-y-1 text-md text-gray-200 leading-tight">
-          <Link to="/" className="hover:underline">Home</Link>
-          <Link to="/contact" className="hover:underline">Contact Us</Link>
-          <Link to="/terms" className="hover:underline">Term Of Services</Link>
-          <Link to="/about" className="hover:underline">About Us</Link>
-          <Link to="/live" className="hover:underline">Live</Link>
-          <Link to="/faq" className="hover:underline">FAQ</Link>
-          <Link to="/premium" className="hover:underline">Premium</Link>
-          <Link to="/privacy" className="hover:underline">Privacy Policy</Link>
-          <Link to="/must-watch" className="hover:underline">You Must Watch</Link>
-          <Link to="/recent-release" className="hover:underline">Recent Release</Link>
-          <Link to="/top-imdb" className="hover:underline">Top IMDB</Link>
-          <Link to="/genre" className="hover:underline">Genre</Link>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center text-gray-200 text-sm max-w-4xl mx-auto">
+          {/* Explore Movies */}
+          <div>
+            <h1 className="font-bold mb-2">🎬 Explore Movies</h1>
+            <ul className="space-y-1">
+              <li><Link to={`/movies?filter=now_playing`} className="hover:underline">Playing Now</Link></li>
+              <li><Link to={`/movies?filter=popular`} className="hover:underline">Trending</Link></li>
+              <li><Link to={`/movies?filter=top_rated`} className="hover:underline">Top Rated TMDB</Link></li>
+              <li><Link to={`/movies?filter=upcoming`} className="hover:underline">Upcoming</Link></li>
+            </ul>
+          </div>
+
+          {/* Explore Series */}
+          <div>
+            <h1 className="font-bold mb-2">📺 Explore Series</h1>
+            <ul className="space-y-1">
+              <li><Link to={`/tv?filter=airing_today`} className="hover:underline">Airing Today</Link></li>
+              <li><Link to={`/tv?filter=on_the_air`} className="hover:underline">On The Air</Link></li>
+              <li><Link to={`/tv?filter=popular`} className="hover:underline">Trending Now</Link></li>
+              <li><Link to={`/tv?filter=top_rated`} className="hover:underline">Top Rated TMDB</Link></li>
+            </ul>
+          </div>
+
+          {/* General Info */}
+          <div>
+            <h1 className="font-bold mb-2">📚 Information</h1>
+            <ul className="space-y-1">
+              <li><Link to="/" className="hover:underline">Home</Link></li>
+              <li><Link to="/about" className="hover:underline">About Us</Link></li>
+              <li><Link to="/faq" className="hover:underline">FAQ</Link></li>
+              <li><Link to="/privacy" className="hover:underline">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:underline">Terms of Service</Link></li>
+            </ul>
+          </div>
         </div>
+      </div>
+
+      {/* Footer Bottom */}
+      <div className="text-center mt-8 text-sm text-gray-400">
+        © {new Date().getFullYear()} FilmScape. All rights reserved.
       </div>
     </footer>
   )
