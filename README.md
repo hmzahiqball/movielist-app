@@ -8,6 +8,8 @@
 
 **FilmScape** is a modern, full-stack web application built with React, TypeScript, and TMDB API. Designed as a personal portfolio project, it provides users with an immersive platform to explore movies and TV shows with detailed information, filters, and dynamic content presentation.
 
+Demo: https://put-movielist.vercel.app
+
 ## 🌟 Features
 
 - 🔎 Explore movies and series by category:  
